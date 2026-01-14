@@ -3,6 +3,7 @@
 - [Python == vs is](#python--vs-is)
 - [Python Interning](#python-interning)
 - [Python Deep Copy vs Shallow copy](#python-deep-copy-vs-shallow-copy)
+- [Python Iterator](#python-iterator)
 
 <br>
 
@@ -117,3 +118,63 @@ a_dcopy = deepcopy(a)
 a[0].append(5)
 print(a_dcopy)  # Output: [[1, 2], 3, 4]
 ```
+
+<br>
+
+### Python Iterator
+
+- An iterator is an object that allows us to iterate over a collection of elements one at a time.
+- An iterator must implement these two methods:
+    - `__iter__()`: Returns the iterator object itself.
+    - `__next__()`: Returns the next element. Raises `StopIteration` indicating end of iteration.
+
+```py
+class MyIterator:
+    def __init__(self, n: int) -> None:
+        self._n = n
+        self._i = 0
+    
+    def __iter__(self):
+        # Return iterator object itself
+        return self
+
+    def __next__(self):
+        if self._i < self._n:
+            value = self._i
+            self._i += 1
+            return value
+
+        raise StopIteration
+
+def main():
+    iterator = MyIterator(5)
+
+    for i in iterator:
+        print(i)
+
+main()
+
+# Output:
+# 0
+# 1
+# 2
+# 3
+# 4
+```
+
+- Above example creates an iterator that iterates from `[0, n)`.
+- **Note**: A `for` loop internally uses `iter()` and `next()` method.
+
+#### Usecases:
+- Reading large files line by line. Prevents loading the entire file into memory.
+  ```py
+  # The standard, memory-efficient way to read a huge file
+  with open("huge_data.log", "r") as file:
+      for line in file:
+          # process(line)  # Only one line exists in memory at a time
+          pass
+  ```
+- Fetching database records in chunk instead of all at once.
+- Lazily doing expensive computation when iterating over an iterable one by one.
+
+<br>
