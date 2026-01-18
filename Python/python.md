@@ -7,6 +7,11 @@
 - [Python Iterable](#python-iterable)
 - [Python Iterator vs Iterable](#python-iterator-vs-iterable)
 - [Generator vs Iterator](#generator-vs-iterator)
+- [Python List](#python-list)
+- [Python Tuple](#python-tuple)
+- [Python Set](#python-set)
+- [Python Dictionary](#python-dictionary)
+- [Python String](#python-string)
 
 <br>
 
@@ -333,6 +338,205 @@ def manager():
 
 - Use a **Generator** for simple, linear and lazy iteration.
 - Use an **Iterator** for complex, object-oriented iteration.
+
+<br>
+
+### Python List
+
+A Python list is an ordered and mutable collection used to store multiple items. Lists are created using square brackets `[]` and can store different data types.
+
+Examples of list creation:
+- `fruits = ["apple", "banana", "cherry"]`
+- `mixed = [1, "hello", 3.5, True]`
+- `empty = []`
+
+Elements in a list can be accessed using:
+- Indexing: `fruits[0]`
+- Negative indexing: `fruits[-1]`
+- Slicing: `fruits[1:3]`, `fruits[1:]`
+
+List elements can be modified by assigning a new value to an index:
+- `fruits[1] = "blueberry"`
+
+Elements can be added using:
+- `append()` to add an element at the end
+- `insert()` to add an element at a specific index
+- `extend()` to add multiple elements
+
+Elements can be removed using:
+- `remove()` to remove by value
+- `pop()` to remove by index (returns the element)
+- `del` to remove by index or delete the entire list
+
+Common list utility operations include:
+- `len()` to get the number of elements
+- `index()` to find the position of an element
+- `count()` to count occurrences of an element
+- `in` keyword to check if an element exists
+
+Lists can be rearranged using:
+- `sort()` to sort the list in place
+- `reverse()` to reverse the list
+- `sorted()` to return a new sorted list
+
+<br>
+
+### Python Tuple
+
+Python tuples are ordered, immutable, and efficient collections used for fixed and read-only data.
+
+Examples of tuple creation:
+- `fruits = ("apple", "banana", "cherry")`
+- `mixed = (1, "hello", 5.5, True)`
+- `colors = "red", "green", "blue"`
+- `single = ("item",)`  
+
+A trailing comma is required for a single-item tuple to distinguish it from a normal expression, ex. `(5 + 2)`
+
+Elements in a tuple can be accessed using:
+- Indexing: `fruits[0]`
+- Negative indexing: `fruits[-1]`
+- Slicing: `fruits[1:3]`
+
+Tuples **cannot be modified** directly:
+- Assignment like `fruits[1] = "blueberry"` raises a `TypeError`
+
+If modification is required, a common workaround is:
+- Convert tuple → list → modify → convert back to tuple
+
+Common tuple utility operations include:
+- `len()` to get number of elements
+- `index()` to find the position of an element
+- `count()` to count occurrences
+- `in` keyword to check membership
+
+Tuple unpacking allows assigning tuple elements to variables:
+- `x, y, z = (10.0, 20.0, 30.0)`
+
+<br>
+
+### Python Set
+
+A **Python set** is an unordered, unindexed, and mutable collection used to store **unique items**. Sets are created using curly braces `{}` or the `set()` constructor. Duplicate elements are automatically removed.
+
+Examples of set creation:
+
+fruits = {"apple", "banana", "cherry"}  
+numbers = {1, 2, 3, 2, 4}  
+empty_set = set()
+
+Elements in a set:
+- Cannot be accessed using indexing or slicing (unordered and unindexed)
+- Can only contain immutable data types (int, float, string, tuple)
+
+Elements can be added using:
+- `add()` to add a single element
+- `update()` to add multiple elements from another iterable
+
+Elements can be removed using:
+- `remove()` to remove an element (raises error if not found)
+- `discard()` to remove an element without error
+- `pop()` to remove and return an arbitrary element
+- `clear()` to remove all elements
+
+Common set utility operations include:
+- `len()` to get the number of elements
+- `in` keyword to check if an element exists (very fast)
+- `issubset()` to check subset relationships
+
+Set mathematical operations include:
+- Union: `A | B` or `A.union(B)`
+- Intersection: `A & B` or `A.intersection(B)`
+- Difference: `A - B` or `A.difference(B)`
+- Symmetric difference: `A ^ B` or `A.symmetric_difference(B)`
+
+<br>
+
+### Python Dictionary
+
+A **Python dictionary** is a built-in, mutable collection used to store data in **key–value pairs**. Dictionaries are created using curly braces `{}` and allow fast data retrieval using unique keys.
+
+Examples of dictionary creation:
+
+```py
+person = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+
+empty_dict = {}
+
+another_dict = dict(brand="Ford", model="Mustang", year=1964)
+```
+
+Values in a dictionary are accessed using **keys**, not indices:
+- **Bracket syntax:** `person["name"]`
+- **get() method** for safe access: `person.get("age")`
+
+Dictionary elements can be **modified or added** using keys:
+- **Modify value:** `person["age"] = 31`
+- **Add new pair:** `person["occupation"] = "Software Engineer"`
+
+Elements can be **removed** using:
+- `del` to delete a key-value pair
+- `pop()` to remove and return a value by key
+- `popitem()` to remove the last inserted pair
+- `clear()` to remove all items
+
+Dictionary **utility operations** include:
+- `keys()` to get all keys
+- `values()` to get all values
+- `items()` to get key–value pairs
+- Iteration using `for key, value in dict.items()`
+
+Other common operations:
+- `len()` to get number of key-value pairs
+- `in` keyword to check if a key exists
+
+<br>
+
+### Python String
+
+A Python string is an ordered and **immutable** sequence of Unicode characters used to handle text. Strings are created using single quotes `' '`, double quotes `" "`, or triple quotes `''' '''` / `""" """` for multi-line text.
+
+**Examples of string creation:**
+
+```py
+name = "Alice"
+greeting = 'Hello'
+multiline = """This is
+a multi-line string"""
+```
+
+**Accessing characters:**
+
+- **Indexing:** `name[0]` → `"A"`  
+- **Negative indexing:** `name[-1]` → `"e"`  
+- **Slicing:** `name[1:4]` → `"lic"`  
+- **Length:** `len(name)` → `5`  
+
+**Concatenation and repetition:**
+
+- **Concatenation:** `"Hello" + " World"` → `"Hello World"`  
+- **Repetition:** `"ha" * 3` → `"hahaha"`  
+
+**Modifying strings (creates new strings):**
+
+- `replace()`: `"hello world".replace("world", "Python")` → `"hello Python"`  
+- `upper()` / `lower()`: `"Python".upper()` → `"PYTHON"`  
+- `strip()`: Removes leading/trailing whitespace  
+
+**Searching and splitting:**
+
+- `find()` / `index()`: Locate substring  
+- `split()`: Break string into list  
+- `join()`: Combine iterable into string  
+
+**String formatting:**
+
+- **f-strings:** `f"Welcome, {name}!"` → `"Welcome, Alice!"` (name is a variable)
+- **format() method:** `"Welcome, {}!".format("Bob")` → `"Welcome, Bob!"`
 
 <br>
 
