@@ -6,6 +6,7 @@
 - [Python Iterator](#python-iterator)
 - [Python Iterable](#python-iterable)
 - [Python Iterator vs Iterable](#python-iterator-vs-iterable)
+- [Python Generator](#python-generator)
 - [Generator vs Iterator](#generator-vs-iterator)
 - [Python List](#python-list)
 - [Python Tuple](#python-tuple)
@@ -15,6 +16,8 @@
 - [Python Array](#python-array)
 - [Python DefaultDict](#python-defaultdict)
 - [Python Module vs Package](#python-module-vs-package)
+- [Python *args vs **kwargs](#python-args-vs-kwargs)
+- [Python Unpacking operators](#python-unpacking-operators)
 
 <br>
 
@@ -254,7 +257,7 @@ for n in it:   # nothing happens
 
 <br>
 
-### Python Generators
+### Python Generator
 
 - Generators in python are lazily evaluated objects.
 - The next loop is ran only when it is required.
@@ -632,4 +635,77 @@ __all__ = ["module1", "module2"]
 
 <br>
 
+### Python *args vs **kwargs
+
+- Both `*args` & `**kwargs` are used to pass arbitrary number of arguments to a function.
+- `*args` collect extra positional arguments as a tuple.
+- `**kwargs` collect extra keyword arguments as a dictionary.
+- Order always: positional → *args → keyword → **kwargs
+
+```py
+# extra positional arguments
+
+def abc(*args):
+    print(type(args))
+    print(args)
+
+abc(1, 2, "ooo")
+
+# Output:
+# <class 'tuple'>
+# (1, 2, 'ooo')
+```
+
+```py
+# extra keyword arguments
+
+def abc(**kwargs):
+    print(type(kwargs))
+    print(kwargs)
+
+abc(a=1, b="ooo")
+
+# Output:
+# <class 'dict'>
+# {'a': 1, 'b': 'ooo'}
+
+```
+
+```py
+def abc(arg1, *args, kwarg1, **kwargs):
+    print(arg1)
+    print(args)
+    print(kwarg1)
+    print(kwargs)
+
+abc(1, 2, 3, kwarg1="val", a="ooo")
+
+# Output:
+# 1
+# (2, 3)
+# val
+# {'a': 'ooo'}
+```
+
+<br>
+
+### Python Unpacking operators
+
+- In python `*` and `**` are often refered to as unpacking operators.
+- `*` is used to unpack an iterable like a list or a tuple.
+- `**` is used to unpack a dictionary like object.
+- `*` and `**` are used for unpacking arguments in a function call.
+
+```python
+def greet(name, age):
+    print(f"{name} is {age} years old.")
+
+args = ("Alice", 30)
+kwargs = {"name": "Bob", "age": 25}
+
+greet(*args)  # Output: Alice is 30 years old.
+greet(**kwargs)  # Output: Bob is 25 years old. (argument names should match with unpacked keys)
+```
+
+<br>
 
