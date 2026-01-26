@@ -18,6 +18,8 @@
 - [Python Module vs Package](#python-module-vs-package)
 - [Python *args vs **kwargs](#python-args-vs-kwargs)
 - [Python Unpacking operators](#python-unpacking-operators)
+- [Python Decorators](#python-decorators)
+- [Types of Decorators](#types-of-decorators)
 
 <br>
 
@@ -705,6 +707,332 @@ kwargs = {"name": "Bob", "age": 25}
 
 greet(*args)  # Output: Alice is 30 years old.
 greet(**kwargs)  # Output: Bob is 25 years old. (argument names should match with unpacked keys)
+```
+
+<br>
+
+### Python Decorators
+
+- Decorators are just functions that return functions.
+- They are used to add additional functionality to existing functions.
+- For example, `@authenticated` decorator can be used to check if the user is authenticated before passing the request to the view.
+- To implement this, create `authenticated()` method with authentication logic and add `@authenticated` above your API view function.
+- A decorator can also take arguments. The syntax looks like this: `@authenticated(admin_only=True)`.
+
+<br>
+
+```py
+# Normal decorator
+
+def my_decorator(func):
+    def inner():
+        print("before")
+        func()
+        print("after")
+    return inner
+
+@my_decorator
+def my_func():
+    print("Hello")
+
+my_func()
+
+# Output:
+# before
+# Hello
+# after
+```
+
+```py
+# Overridden function accepts parameters
+
+def my_decorator(func):
+    def inner(*args, **kwargs):
+        print("before")
+        func(*args, **kwargs)
+        print("after")
+    return inner
+
+@my_decorator
+def my_func(name: str):
+    print("Hello", name)
+
+my_func("john")
+
+# Output:
+# before
+# Hello john
+# after
+```
+
+```py
+# Overridden function return values
+
+def my_decorator(func):
+    def inner(*args, **kwargs):
+        print("before")
+        res = func(*args, **kwargs)
+        print("after")
+        return res
+    return inner
+
+@my_decorator
+def my_func(name: str):
+    print("Hello", name)
+    return 1
+
+print(my_func("john"))
+
+# Output:
+# before
+# Hello john
+# after
+# 1
+```
+
+```py
+# Decorator accepts parameters
+
+def my_decorator(num):
+    def wrapper(func):
+        def inner(*args, **kwargs):
+            print("before", num)
+            res = func(*args, **kwargs)
+            print("after", num)
+            return res
+        return inner
+    return wrapper
+
+@my_decorator(10)
+def my_func(name: str):
+    print("Hello", name)
+    return 1
+
+print(my_func("john"))
+
+# Output:
+# before 10
+# Hello john
+# after 10
+# 1
+```
+
+<br>
+
+### Types of Decorators
+
+- Decorators can be classified into 2 categories depending on:
+    - Type of object they decorate:
+        - Function decorator
+        - Method decorator
+        - Class decorator
+    - Behaviour:
+        - Decorator factory (decorator that accepts arguments)
+        - Decorator stacking
+        - Decorator that replaces the target entirely
+
+<br>
+
+#### Function decorator
+
+- A function decorator is a function that takes another function as input and returns a new function.
+- It extends or modifies the behavior of the original function.
+
+```py
+def my_decorator(func):
+    def inner(*args, **kwargs):
+        print("before")
+        print(args, kwargs)
+        func(*args, **kwargs)
+        print("after")
+    return inner
+
+@my_decorator
+def say_hello(name):
+    print(f"Hello {name}!")
+
+say_hello("apple")
+
+# Output
+# before
+# ('apple',) {}
+# Hello apple!
+# after
+```
+
+<br>
+
+#### Method decorator
+
+- Method decorators are used inside classes. They can decorate instance methods, class methods, or static methods.
+- Note that the custom decorator should be added below `@classmethod` & `@staticmethod` decorators.
+
+```py
+# instance method decorator
+
+def instance_method_decorator(func):
+    def wrapper(self, *args, **kwargs):
+        print("Instance method decorator")
+        return func(self, *args, **kwargs)
+    return wrapper
+
+class MyClass:
+    @instance_method_decorator
+    def greet(self, name):
+        print(f"Hello {name}! from instance method")
+
+obj = MyClass()
+obj.greet("apple")
+
+# Output
+# Instance method decorator
+# Hello apple! from instance method
+```
+
+```py
+# class method decorator
+
+def class_method_decorator(func):
+    def wrapper(cls, *args, **kwargs):
+        print("Class method decorator")
+        return func(cls, *args, **kwargs)
+    return wrapper
+
+class MyClass:
+    @classmethod
+    @class_method_decorator
+    def display(cls):
+        print("Inside class method")
+
+MyClass.display()
+
+# Output
+# Class method decorator
+# Inside class method
+```
+
+```py
+# static method decorator
+
+def static_method_decorator(func):
+    def wrapper(*args, **kwargs):
+        print("Static method decorator")
+        return func(*args, **kwargs)
+    return wrapper
+
+class MyClass:
+    @staticmethod
+    @static_method_decorator
+    def multiply(a, b):
+        return a * b
+
+print(MyClass.multiply(2, 3))
+
+# Output
+# Static method decorator
+# 6
+```
+
+<br>
+
+#### Class decorator
+
+- A class decorator decorates an entire class instead of a function.
+- It receives the class as an argument and can modify or replace it.
+
+```py
+def class_decorator(cls):
+    cls.category = "Decorated Class"
+    return cls
+
+@class_decorator
+class MyClass:
+    pass
+
+print(MyClass.category)  # Decorated Class
+```
+
+<br>
+
+#### Decorator factory
+
+- A decorator that accepts arguments is called a Decorator factory.
+- It is just a function that returns a decorator.
+
+```py
+def repeat(n):
+    def decorator(func):
+        def inner(*args, **kwargs):
+            for _ in range(n):
+                func(*args, **kwargs)
+        return inner
+    return decorator
+
+@repeat(3)
+def say_hi():
+    print("Hi")
+
+say_hi()
+
+# Hi
+# Hi
+# Hi
+```
+
+<br>
+
+#### Decorator stacking
+
+- Multiple decorators can be stacked one above the other.
+- While going in, they are executed from top to bottom and while coming out they are executed from bottom to top.
+
+```py
+def decorator_one(func):
+    def wrapper():
+        print("1 - before")
+        func()
+        print("1 - after")
+    return wrapper
+
+def decorator_two(func):
+    def wrapper():
+        print("2 - before")
+        func()
+        print("2 - after")
+    return wrapper
+
+@decorator_one
+@decorator_two
+def greet():
+    print("Hello!")
+
+greet()
+
+# 1 - before
+# 2 - before
+# Hello!
+# 2 - after
+# 1 - after
+```
+
+<br>
+
+#### Decorator that replaces the target entirely
+
+- Some decorators do not call the original function at all, they completely replace the target function.
+- This is useful for feature toggles, mocking, or access blocking.
+
+```py
+def replace_function(func):
+    def new_function():
+        print("Original function is replaced")
+    return new_function
+
+@replace_function
+def original():
+    print("This will never run")
+
+original()  # Original function is replaced
 ```
 
 <br>
