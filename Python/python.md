@@ -20,6 +20,7 @@
 - [Python Unpacking operators](#python-unpacking-operators)
 - [Python Decorators](#python-decorators)
 - [Types of Decorators](#types-of-decorators)
+- [Python Exception Handling](#python-exception-handling)
 
 <br>
 
@@ -1037,3 +1038,111 @@ original()  # Original function is replaced
 
 <br>
 
+### Python Exception Handling
+
+- Exceptions are handled using try - except block.
+- We can except specific exceptions like `ValueError`, `ZeroDivisionError`, etc.
+- We can also except generic exceptions using `except Exception as e`.
+- The code inside else is executed, only if no exception occured.
+- The code inside finally is always executed, whether an exception occured or not.
+
+```python
+def exception_handling(num):
+    try:
+        print("try")
+        10 / num
+        print("end")
+    except ZeroDivisionError:
+        print("error")
+    else:
+        print("else")
+    finally:
+        print("finally")
+
+exception_handling(1)
+# try
+# end
+# else
+# finally
+
+exception_handling(0)
+# try
+# error
+# finally
+```
+
+- The code inside `finally` block will always be executed. Even if we have `return` statement in `try` and `except` blocks.
+- If there is a `return` statement in `finally`, this value will be returned else the value from `try` and `except` blocks will be returned.
+
+```python
+def exception_handling(num):
+    try:
+        print("try")
+        10 / num
+        print("end")
+        return 1
+    except ZeroDivisionError:
+        print("error")
+        return 2
+    else:
+        print("else")
+    finally:
+        print("finally")
+
+res = exception_handling(1)
+print(res)
+# try
+# end
+# finally
+# 1
+
+res = exception_handling(0)
+print(res)
+# try
+# error
+# finally
+# 2
+```
+
+#### Custom Exception
+
+- User-defined error created by subclassing `Exception`.
+- Represent application-specific or domain-specific errors clearly and explicitly.
+
+```py
+class InvalidAgeError(Exception):
+    pass
+
+def register(age):
+    if age < 18:
+        raise InvalidAgeError("Age must be 18+")
+    return "Registered!"
+```
+
+#### Exception Chaining
+
+- Used to raise a high-level exception while preserving the original low-level cause
+- `raise HighLevelError("Meaningful message") from original_exception`
+
+```py
+# Without Chaining
+try:
+    int("abc")
+except ValueError:
+    raise RuntimeError("Invalid input")
+
+# RuntimeError: Invalid input
+# (Original ValueError is gone)
+```
+
+```py
+# With Chaning
+try:
+    int("abc")
+except ValueError as e:
+    raise RuntimeError("Invalid input") from e
+
+# ValueError: invalid literal for int() with base 10: 'abc'
+# The above exception was the direct cause of the following exception:
+# RuntimeError: Invalid input
+```
