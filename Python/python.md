@@ -22,6 +22,7 @@
 - [Types of Decorators](#types-of-decorators)
 - [Python Exception Handling](#python-exception-handling)
 - [Python Context Manager](#python-context-manager)
+- [Python Module vs Package](#python-module-vs-package)
 
 <br>
 
@@ -1231,6 +1232,39 @@ with my_context_manager() as manager:
 #     raise ValueError("kkk")
 # ValueError: kkk
 ```
+
+<br>
+
+### Python Module vs Package
+
+Module
+- A module is simply a `.py` file.
+- It can contain functions, classes, or variables.
+- You can import and use a module in other Python files.
+
+Package
+- A package is a directory containing multiple Python files (modules).
+- This directory must contain an `__init__.py` file. Even if it is empty.
+- This `__init__.py` file differentiates a directory from a package.
+- A package can contain sub-packages.
+- `__all__` defines which names are exported when using `from module/package import *`, acting as the module’s public API list.
+
+```py
+Folder structure
+mypackage/
+    __init__.py
+    utils.py
+    models.py
+
+# __init__,py
+from .utils import helpful_function
+from .models import User
+
+__all__ = ["helpful_function", "User"]
+```
+
+- `import package` → executes `__init__.py` and adds one name (the package) to your namespace.
+- `from package import *` → executes `__init__.py` and adds multiple names (from `__all__` or public names) as separate entries in your namespace.
 
 <br>
 
