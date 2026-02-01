@@ -26,7 +26,8 @@
 - [Python Namespace and Scope](#python-namespace-and-scope)
 - [Python Scope Resolution](#python-scope-resolution)
 - [Python Closure](#python-closure)
-- [Python nonlocal vs global](#python-nonlocal-vs-global)
+- [Python nonlocal vs global keywords](#python-nonlocal-vs-global-keywords)
+- [Python GIL](#python-gil)
 
 <br>
 
@@ -1376,7 +1377,7 @@ info("Started")     # [INFO] Started
 
 <br>
 
-### Python nonlocal vs global
+### Python nonlocal vs global keywords
 
 - `global x` tells Python: “When I assign to `x`, use the module-level (global) x, not a local one.”
 
@@ -1407,6 +1408,17 @@ c = counter()
 print(c())  # 1
 print(c())  # 2
 ```
+
+<br>
+
+### Python GIL
+
+- GIL stands from Global Interpreter Lock.
+- Each python process has a GIL lock associated with it.
+- GIL allows only 1 thread execution at a time by the python interpreter.
+- It prevents multithreading and the issues associated with it (like race conditions, data corruption, etc.).
+- Due to limitation of having only single thread, true multithreading is not possible. Thus the performance of the applications can be reduced.
+- But if we are dealing with I/O bound operations, we can leverage threading module & context switching.
 
 <br>
 
