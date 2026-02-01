@@ -23,6 +23,10 @@
 - [Python Exception Handling](#python-exception-handling)
 - [Python Context Manager](#python-context-manager)
 - [Python Module vs Package](#python-module-vs-package)
+- [Python Namespace and Scope](#python-namespace-and-scope)
+- [Python Scope Resolution](#python-scope-resolution)
+- [Python Closure](#python-closure)
+- [Python nonlocal vs global](#python-nonlocal-vs-global)
 
 <br>
 
@@ -1268,4 +1272,141 @@ __all__ = ["helpful_function", "User"]
 
 <br>
 
+### Python Namespace and Scope
+
+- A namespace is like a dictionary that holds mapping between a variable identifier and its value.
+- There are 4 categories of namespace:
+    - **Built-in namespace**: contains built-in variables & functions (`print()`, `None`, etc.)
+    - **Global namespace**: contains module level variables & functions.
+    - **Local namespace**: contains variables defined inside a function.
+    - **Enclosing namespace**: refers to namespace of outer function (in case of nested functions).
+
+<br>
+
+```python
+x = "global"
+
+def outer():
+    x = "enclosing"
+    def inner():
+        x = "local"
+    inner()
+```
+
+<br>
+
+- Scope defines visibility and lifespan of a variable.
+- It also states where we can access a variable in the code.
+- Again, there are 4 categories of scope:
+    - **Built-in scope**: Python’s built-in names.
+    - **Global scope**: Module level scope.
+    - **Enclosing scope**: Outer function scope.
+    - **Local scope**: Function level scope. 
+
+- We can see the identifiers defined in global and local namespace using: `globals()` and `locals()` functions.
+
+<br>
+
+```python
+my_var_1 = 100
+print("Globals:", globals())
+
+def abc():
+    my_var_2 = 200
+    print("Globals:", globals())
+    print("Locals:", locals())
+
+abc()
+
+# Output:
+
+# Globals: {..., 'my_var_1': 100}
+
+# Globals: {..., 'my_var_1': 100, 'abc': <function abc at 0x7efa454231a0>}
+# Locals: {'my_var_2': 200}
+```
+
+<br>
+
+### Python Scope Resolution
+
+- It refers to the process of finding a particular variable in the program.
+- Scope resolution is based on the LEGB rule.
+- Python first tries to find the variable in the **L**ocal namespace then **E**nclosing namespace then **G**lobal namespace and at last **B**uilt-in namespace.
+- If the variable in not found after searching in all 4 namespaces, it raises `NameError`.
+
+<br>
+
+```python
+x = "global"
+
+def outer():
+    x = "enclosing"
+
+    def inner():
+        x = "local"
+        print(x)  # Prints "local"
+    
+    inner()
+    print(x)  # Prints "enclosing"
+
+outer()
+print(x)  # Prints "global"
+```
+
+<br>
+
+### Python Closure
+
+- A closure is a function that captures and remembers variables from its enclosing scope even after that scope has finished executing.
+- Normally, local variables die when a function returns.
+- But with closures: The inner function keeps a reference to the outer function’s variables.
+- Inspecting a closure: `print(double.__closure__)`
+
+```py
+def make_logger(prefix):
+    def log(msg):
+        print(f"[{prefix}] {msg}")
+    return log
+
+info = make_logger("INFO")
+
+info("Started")     # [INFO] Started
+```
+
+<br>
+
+### Python nonlocal vs global
+
+- `global x` tells Python: “When I assign to `x`, use the module-level (global) x, not a local one.”
+
+```py
+x = 0
+
+def inc():
+    global x
+    x += 1
+
+inc()
+inc()
+print(x)   # 2
+```
+
+- `nonlocal x` tells Python: “When I assign to `x`, use the variable from the nearest enclosing function scope (not global, not local).”
+
+```py
+def counter():
+    count = 0
+    def inc():
+        nonlocal count
+        count += 1
+        return count
+    return inc
+
+c = counter()
+print(c())  # 1
+print(c())  # 2
+```
+
+<br>
 
