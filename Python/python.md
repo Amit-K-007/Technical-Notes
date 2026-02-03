@@ -29,6 +29,7 @@
 - [Python nonlocal vs global keywords](#python-nonlocal-vs-global-keywords)
 - [Python GIL](#python-gil)
 - [Python Lambda Function](#python-lambda-function)
+- [Python Built-in Functions](#python-built-in-functions)
 
 <br>
 
@@ -1442,3 +1443,240 @@ print(max2(3, 7))  # 7
 ```
 
 <br>
+
+### Python Built-in Functions
+
+#### `zip()`
+
+- Combines multiple iterables element-wise into tuples.
+- `zip(a, b)` pairs `a[i]` with `b[i]` until the shortest iterable ends. 
+
+```py
+iter1 = "abc"
+iter2 = [1, 2, 3, 4]
+iter3 = [n * n for n in iter2]
+
+for a, b, c in zip(iter1, iter2, iter3):
+    print(a, b, c)
+
+zip_obj = zip(iter1, iter2, iter3)
+print(zip_obj)  # <zip object at 0x797a33091ac0>
+print(list(zip_obj))  # [('a', 1, 1), ('b', 2, 4), ('c', 3, 9)]  # last element skipped due to length
+print(list(zip_obj))  # []
+
+# Output:
+# a 1 1
+# b 2 4
+# c 3 9
+```
+
+<br>
+
+#### `filter()`
+
+- Keeps only the elements of an iterable that satisfy a condition.
+- Signature: `filter(function, iterable)`.
+    - `function` is usually a lambda function that returns `True` or `False`.
+    - Returns a lazy, single-use iterator.
+- Note: In modern Python, **List Comprehension** is usually preferred.
+
+```py
+iter1 = [1,2,3,4,5]
+
+filtered = filter(lambda x: x % 2 == 0, iter1)
+
+print(type(filtered))  # <class 'filter'>
+print(list(filtered))  # [2, 4]
+print(list(filtered))  # []
+```
+
+<br>
+
+#### `map()`
+
+- Apply a function to each element of an iterable.
+- Signature: `map(function, iterable)`.
+    - `function` is usually a lambda function that returns something.
+    - Returns a lazy, single-use iterator.
+- Note: In modern Python, again **List Comprehension** is usually preferred.
+
+```py
+iter1 = [1,2,3,4,5]
+
+doubled = map(lambda x: x*2, iter1)
+
+print(type(doubled))  # <class 'map'>
+print(list(doubled))  # [2, 4, 6, 8, 10]
+print(list(doubled))  # []
+```
+
+<br>
+
+#### `enumerate()`
+
+- Gives access to element and its index.
+
+```py
+iter1 = "abc"
+
+for i, l in enumerate(iter1):
+    print(i, l)
+
+enum_obj = enumerate(iter1)
+print(enum_obj)  # <enumerate object at 0x7214f0e88700>
+print(list(enum_obj))  # [(0, 'a'), (1, 'b'), (2, 'c')]
+print(list(enum_obj))  # []
+
+# Output:
+# 0 a
+# 1 b
+# 2 c
+```
+
+<br>
+
+#### `range()`
+
+- Generates a sequences of numbers.
+- This sequence can be in ascending or descending order with or without skipping elements.
+
+```py
+r1 = range(5)
+
+print(type(r1))  # <class 'range'>
+print(list(r1))  # [0, 1, 2, 3, 4]
+print(list(r1))  # [0, 1, 2, 3, 4]
+
+r2 = range(5, 10)
+print(list(r2))  # [5, 6, 7, 8, 9]
+
+r3 = range(1, 10, 2)
+print(list(r3))  # [1, 3, 5, 7, 9]
+
+r4 = range(5, 3)
+print(list(r4))  # []
+
+r5 = range(5, 3, -1)
+print(list(r5))  # [5, 4]
+```
+
+<br>
+
+#### `sorted()`
+
+- Returns a sorted list from any iterable.
+- We can also pass a sorting key.
+- Sorting can be done in ascending or descending order.
+- For multi-key sorting in Python, return a tuple from the `key` function, e.g. `key=lambda x: (x[0], x[1])`, which sorts by the first element of the tuple, then the second, and so on.
+
+```py
+a = [2,3,1,4,3]
+
+sorted_a = sorted(a)
+print(type(sorted_a))  # <class 'list'>
+print(list(sorted_a))  # [1, 2, 3, 3, 4]
+print(list(sorted_a))  # [1, 2, 3, 3, 4]
+
+sorted_a_rev = sorted(a, reverse=True)
+print(list(sorted_a_rev))  # [4, 3, 3, 2, 1]
+
+
+b = ["banana", "apple", "peach"]
+
+sorted_b_len = sorted(b, key=len)
+print(list(sorted_b_len))  # ['apple', 'peach', 'banana']
+
+sorted_b_1 = sorted(b, key=lambda x: x[1])
+print(list(sorted_b_1))  # ['banana', 'peach', 'apple']   # Sored based on second letter
+
+
+data = [(1, 2, 3),(4, 1, 5),(6, 2, 1),(7, 1, 2),]
+
+sorted_data = sorted(data, key=lambda x: (x[1], x[2]))
+print(sorted_data)   # [(7, 1, 2), (4, 1, 5), (6, 2, 1), (1, 2, 3)]
+```
+
+<br>
+
+#### `reversed()`
+
+- Reverse the given iterable.
+- Returns an iterator.
+
+```py
+a = [2,3,1,4,3]
+
+reversed_a = reversed(a)
+print(type(reversed_a))  # <class 'list_reverseiterator'>
+print(list(reversed_a))  # [3, 4, 1, 3, 2]
+print(list(reversed_a))  # []
+```
+
+<br>
+
+#### `any()` and `all()`
+
+`any()`
+
+- Return True if `bool(x)` is True for any x in the iterable.
+- If the iterable is empty, return False.
+
+<br>
+
+`all()`
+
+- Return True if `bool(x)` is True for all values x in the iterable.
+- If the iterable is empty, return True.
+
+```py
+a = [False, True, False]
+
+print(any(a))  # True
+print(all(a))  # False
+```
+
+<br>
+
+#### `sum()`
+
+- Returns the sum of a 'start' value (default: 0) plus an iterable of numbers.
+- It will reject non-numeric types.
+
+```py
+a = [1,2,3]
+print(sum(a))  # 6
+
+nums = [1, 2, 3]
+print(sum(nums, 10))   # 16   (10 + 1 + 2 + 3)
+```
+
+<br>
+
+#### `hasattr(obj, "name")`
+
+- Returns `True` if `obj` has an attribute called `"name"`, otherwise `False`.
+
+```py
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+p = Person("Amit")
+
+print(hasattr(p, "name"))   # True
+```
+
+<br>
+
+#### `getattr(obj, "name", default)`
+
+- Returns the value of `obj.name` if it exists; otherwise returns `default`.
+
+```py
+# For above object p
+print(getattr(p, "name", None))  # "Amit"
+print(getattr(p, "age", None))   # None
+```
+
+<br>
+
