@@ -28,6 +28,7 @@
 - [Python Closure](#python-closure)
 - [Python nonlocal vs global keywords](#python-nonlocal-vs-global-keywords)
 - [Python GIL](#python-gil)
+- [Python Lambda Function](#python-lambda-function)
 
 <br>
 
@@ -1422,3 +1423,22 @@ print(c())  # 2
 
 <br>
 
+### Python Lambda Function
+
+- A lambda function in python is an anonymous, inline function.
+- `lambda arguments: expression` (An `expression` evaluates to a value, while a `statement` performs an action and does not return a value)
+- It is mostly used with buit-in functions like filter(), map(), etc.
+
+<br>
+
+```python
+a = [1, 2, 3, 4, 5]
+
+even = list(filter(lambda x: x % 2 == 0, a))
+print(even)  # Output: [2, 4]
+
+max2 = lambda a, b: a if a > b else b
+print(max2(3, 7))  # 7
+```
+
+<br>
