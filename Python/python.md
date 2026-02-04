@@ -1680,3 +1680,17 @@ print(getattr(p, "age", None))   # None
 
 <br>
 
+#### `type(x) == int` vs `isinstance(x, int)`
+
+- `type(x) == int` checks whether the exact type of `x` is `int`, and fails for subclasses.
+- `isinstance(x, int)` checks whether `x` is an instance of `int` or any subclass of `int` like `bool`, and also supports checking against multiple types.
+
+```py
+isinstance(True, int)   # True
+type(True) == int       # False
+
+isinstance(x, (int, float))  # Check for multiple classes
+```
+
+<br>
+
