@@ -30,6 +30,7 @@
 - [Python GIL](#python-gil)
 - [Python Lambda Function](#python-lambda-function)
 - [Python Built-in Functions](#python-built-in-functions)
+- [Python Multithreading vs Multiprocessing vs Asyncio](#python-multithreading-vs-multiprocessing-vs-asyncio)
 
 <br>
 
@@ -1694,3 +1695,35 @@ isinstance(x, (int, float))  # Check for multiple classes
 
 <br>
 
+### Python Multithreading vs Multiprocessing vs Asyncio
+
+#### Multithreading
+
+- Multithreading spwans multiple threads in a same process.
+- Ideal for blocking I/O bound tasks.
+- Due to the GIL, only one thread executes Python bytecode at a time within a single process.
+- The Python interpreter automatically switches the GIL between threads periodically (after a small time slice or number of bytecode instructions), even if threads are CPU-bound.
+- When one thread is waiting for an I/O operation, it releases the GIL, allowing another thread to run.
+- The Operating System scheduler is responsible for context switching between threads, while the Python interpreter manages GIL ownership.
+- This allows multiple threads to make progress concurrently on I/O-bound tasks, even though only one executes Python bytecode at any instant.
+- Use threading when you want to perform `blocking I/O operations` concurrently.
+- Avoid using threads for CPU intensive tasks.
+
+#### Multiprocessing
+
+- Multiprocessing spwans multiple processes, each with it's own python interpreter and memory.
+- Ideal for CPU bound tasks.
+- Each process has it's own GIL, hence true parallelism is possible.
+- Use when you want to do parallel computation across CPU cores.
+- Multiprocessing has higher overhead due to inter-process communication and memory usage.
+
+#### Asyncio
+
+- Asyncio works with a single thread and a single process.
+- Ideal for non-blocking I/O bound tasks.
+- It uses event loop to manage and schedule asynchronous I/O tasks.
+- When one task encounters `await` statement, another task is picked for execution.
+- Developer is in control of context switching (using `await` keyword).
+- Use asyncio when you want to perform `non-blocking I/O operations` concurrently.
+
+<br>
