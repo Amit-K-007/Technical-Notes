@@ -29,5 +29,36 @@
 - **Approach 3**: Traverse linked list by assigning each node INT_MAX value
 - While iterating if any INT_MAX node present, then their is a cycle.
 
+
 <br>
+
+
+### Copy List with Random Pointer
+
+- Problem: Create and return a deep copy of a linked list where each node has both a next and a random pointer (to any node), ensuring all pointers in the new list point only to newly created nodes.
+- Link: https://leetcode.com/problems/copy-list-with-random-pointer
+
+---
+
+- **Algorithm**: Interweaving Nodes Method
+- For each original node, create its copy and insert it right after the original node.
+`(A → B → C becomes A → A' → B → B' → C → C')`
+- For each original node, assign:
+`copy.random = original.random.next (if random exists).`
+- Restore the original list and extract the copied list into a separate linked list.
+
+---
+
+- **Approach 2**: Traverse the original list and create a copy node for each original node.
+- Store mapping: `old_node → new_node` in a dictionary.
+- Traverse the list again and set:
+```py
+new_node.next = old_to_new[old_node.next]`
+new_node.random = old_to_new[old_node.random]
+(if they exist)
+```
+
+
+<br>
+
 
