@@ -62,3 +62,27 @@ new_node.random = old_to_new[old_node.random]
 <br>
 
 
+### Reverse Linked List II
+
+- Problem: Reverse the part of linked list from node left to right.
+- Link: https://leetcode.com/problems/reverse-linked-list-ii
+
+---
+
+- **Algorithm**: Use `curr` and `tail` pointers to reverse nodes one by one.
+- Set `curr` to previous of left node, and `tail` as left node.
+- Then repeat following steps:
+  - Store `curr.next` in `tmp`.
+  - Attach `curr.next` to `tail.next`.
+  - Attach `tail.next` to `tail.next.next`.
+  - Attach `curr.next.next` to `tmp`.
+- Refer: https://leetcode.com/problems/reverse-linked-list-ii/solutions/30709/talk-is-cheap-show-me-the-code-and-drawi-3s1x
+
+---
+
+- **Approach 2**: Store first half nodes from left to right in array.
+- Then Travserse remaining half nodes, and swap the values.
+
+
+<br>
+
