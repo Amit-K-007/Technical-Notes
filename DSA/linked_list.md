@@ -2,6 +2,21 @@
 
 <br>
 
+## Algorithms
+
+<br>
+
+### Slow and Fast Pointers (Tortoise & Hare Algorithm)
+
+- Slow pointer → moves 1 step at a time
+- Fast pointer → moves 2 steps at a time
+- **Usage**:
+  -  Detect Cycle in a Linked List
+  -  Find Middle of Linked List
+  -  Find Start of Cycle
+
+<br>
+
 ## Problems
 
 <br>
