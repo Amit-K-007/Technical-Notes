@@ -86,3 +86,19 @@ new_node.random = old_to_new[old_node.random]
 
 <br>
 
+
+### Remove Nth Node From End of List
+
+- Problem: Given the head of a linked list, remove the nth node from the end of the list.
+- Link: https://leetcode.com/problems/remove-nth-node-from-end-of-list
+
+---
+
+- **Algorithm**: Maintain distance of n between slow and fast pointers.
+- Move fast pointer n places forward
+- Then move start and fast pointer, untill fast reaches at end.
+- Now, the slow pointer will be pointing to nth node from the end
+
+
+<br>
+
