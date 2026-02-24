@@ -126,9 +126,10 @@ new_node.random = old_to_new[old_node.random]
 ---
 
 - **Algorithm**: Doubly linked list + hashmap
-- Use a doubly linkedlist to remove a node from any position in `O(1)`.
-- It also removes last node and inserts a new node at start in `O(1)`.
-- Use a hashmap of `{key: node}`, to quickly find the node associated with that key.
+- Use a doubly linked list to remove a node from any position in `O(1)`.
+- Insert new or recently accessed nodes at the right (MRU side) in `O(1)`.
+- Remove the least recently used node from the left (LRU side) in `O(1)`.
+- Use a hashmap of {key: node} to quickly find the node associated with that key in `O(1)`.
 
 
 <br>
