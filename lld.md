@@ -1,6 +1,7 @@
 ## Index
 - [SOLID Principles](#solid-principles)
-
+- [Design Patterns](#design-patterns)
+- [C - Factory](#c---factory)
 
 <br>
 
@@ -247,3 +248,75 @@ class UserService:
     def __init__(self, db: Database):
         self.db = db
 ```
+
+
+<br>
+
+
+### Design Patterns
+- Reference: https://refactoring.guru/design-patterns/catalog
+
+
+<br>
+
+
+### C - Factory
+
+- It defines an interface for creating objects but lets subclasses decide which concrete class to instantiate.
+- It replaces direct object creation with a factory method call.
+- The method returns objects that share a common interface (Product).
+- The Creator class contains core business logic and calls the factory method within that workflow.
+- Primarily used in framework or extensible system design where the base class defines the workflow and subclasses customize object creation.
+- https://refactoring.guru/images/patterns/diagrams/factory-method/structure-2x.png
+
+```py
+from abc import ABC, abstractmethod
+
+# Product
+class Notification(ABC):
+    @abstractmethod
+    def send(self):
+        pass
+
+# Concrete Products
+class EmailNotification(Notification):
+    def send(self):
+        print("Sending Email")
+
+class SMSNotification(Notification):
+    def send(self):
+        print("Sending SMS")
+
+# Creator
+class NotificationService(ABC):
+
+    def notify(self):
+        notification = self.create_notification()
+        notification.send()
+
+    @abstractmethod
+    def create_notification(self) -> Notification:
+        pass
+
+# Concrete Creators
+class EmailService(NotificationService):
+    def create_notification(self):
+        return EmailNotification()
+
+class SMSService(NotificationService):
+    def create_notification(self):
+        return SMSNotification()
+
+# Client Code
+email_service = EmailService()
+email_service.notify()
+```
+
+- `NotificationService` defines the workflow (`notify()`).
+- Subclasses decide which notification to create.
+- No conditional logic is used.
+- New notification types can be added without modifying existing classes.
+
+
+<br>
+
