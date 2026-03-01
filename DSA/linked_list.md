@@ -133,3 +133,22 @@ new_node.random = old_to_new[old_node.random]
 
 
 <br>
+
+
+### Sort linked list
+
+- Problem: Given the head of a linked list, return the list after sorting it in ascending order.
+- Link: https://leetcode.com/problems/sort-list/
+
+---
+
+- **Algorithm**: Merge sort
+- Use **Slow & Fast pointer** algorithm to get the middle of the linked list.
+- Split linked list into 2 parts from the middle.
+- Recursively keep on splitting each part until a single node is left.
+- Now get the left sorted part and right sorted part and merge these two parts.
+- The algorithm is same as **Merge two sorted linked lists**. No need for extra space.
+- Keep doing so until we get a single sorted linked list.
+
+
+<br>
