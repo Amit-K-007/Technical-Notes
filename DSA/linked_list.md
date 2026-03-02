@@ -152,3 +152,55 @@ new_node.random = old_to_new[old_node.random]
 
 
 <br>
+
+
+### Starting point of linked list cycle
+
+- Problem: Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+- Link: https://leetcode.com/problems/linked-list-cycle-ii/
+
+---
+
+- **Algorithm**:  Slow fast pointer
+- Start with `slow` pointer pointing to `head` and `fast` pointer pointing to `head`.
+- Move `slow` by **1 step** and `fast` by **2 steps**.
+- If `fast` reaches the end (`null`), there is **no cycle**.
+- If at any point `slow == fast`, a **cycle exists**.
+- Now, create two pointers:
+  - `start = head`
+  - Keep `slow` at the meeting point.
+- Move both `start` and `slow` **one step at a time**.
+- The node where they meet is the **starting node of the cycle**.
+
+---
+
+- **How it actually works**:
+- Let,
+  - `L` = distance from head to start of cycle
+  - `C` = length of cycle
+  - `x` = distance from cycle start to meeting point.
+- When slow and fast meet:
+  - Slow travels → `L + x`
+  - Fast travels → `2(L + x)`
+
+- But fast also travels extra full cycles:
+```
+L + x = kC
+L = kC - x
+```
+
+- Solving:
+```
+L + x = kC
+L = kC - x
+```
+
+- This means, Distance from head to cycle start = Distance from meeting point to cycle start (inside the loop).
+
+---
+
+- **Approach 2**: Use a set to keep track of visited nodes.
+- Return the first duplicate node.
+
+
+<br>
