@@ -236,3 +236,30 @@ L = kC - x
 
 
 <br>
+
+
+### Intersection of Two Linked Lists
+
+- Problem: Given heads of two singly linked lists, return the node at which the two lists intersect.
+If no intersection exists, return None.
+- Link: https://leetcode.com/problems/intersection-of-two-linked-lists/description/
+
+---
+
+- **Algorithm**: Two Pointer Switching Method
+-  Traverse both lists using two pointers.
+- When a pointer reaches end, redirect it to the other list's head.
+- Eventually both pointers will meet at intersection (or None).
+- Both pointers travel atmost `lenA + lenB`.
+
+---
+
+- **Approach 2**: Length Difference Method
+- Find length of both lists.
+- Move pointer of longer list ahead by `abs(len1 - len2)`.
+- Move both pointers together.
+- The node where they meet is the intersection.
+
+
+<br>
+
