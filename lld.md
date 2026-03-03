@@ -1,7 +1,9 @@
 ## Index
 - [SOLID Principles](#solid-principles)
 - [Design Patterns](#design-patterns)
-- [C - Factory](#c---factory)
+- [C - Factory Method](#c---factory-method)
+- [C - Abstract Factory](#c---abstract-factory)
+
 
 <br>
 
@@ -255,14 +257,16 @@ class UserService:
 
 ### Design Patterns
 - Reference: https://refactoring.guru/design-patterns/catalog
+- Video Reference: https://www.youtube.com/playlist?list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc
 
 
 <br>
 
 
-### C - Factory
+### C - Factory Method
 
-- Factory Method is a creational pattern that defines an interface for creating objects but lets subclasses decide which concrete class to instantiate.
+**Overview**
+- It is a creational pattern that defines an interface for creating objects but lets subclasses decide which concrete class to instantiate.
 - It replaces direct object creation with a factory method call, removing conditional logic from client code.
 - The factory method returns objects that share a common interface (Product), ensuring polymorphism.
 - The Creator class contains core business logic and calls the factory method as part of its workflow.
@@ -312,6 +316,7 @@ class BalancedAnimalCreator(AnimalCreator):
             return Cat()
 ```
 
+**Explanation**
 - `AnimalCreator` defines the workflow (`generate_animal_sound()`).
 - Subclasses decide how animals are instantiated
 - Business logic of selection varies between subclasses.
@@ -320,4 +325,119 @@ class BalancedAnimalCreator(AnimalCreator):
 
 
 <br>
+
+
+### C - Abstract Factory
+
+**Overview**
+- It defines an interface for creating families of related objects.
+- Factory pattern focuses on creating individual objects (e.g. button), while abstract factory focuses on creating a set of related objects (e.g. button & input & popup).
+- It is like a factory for factories.
+
+<br>
+
+```py
+from abc import ABC, abstractmethod
+
+class Button(ABC):
+    """Abstract Product"""
+
+    @abstractmethod
+    def click(self):
+        raise NotImplementedError()
+
+class MacButton(Button):
+    """Concrete Product"""
+
+    def click(self):
+        print("Mac button clicked")
+
+class WindowsButton(Button):
+    """Concrete Product"""
+
+    def click(self):
+        print("Windows button clicked")
+
+class Input(ABC):
+    """Abstract Product"""
+
+    @abstractmethod
+    def validate(self):
+        raise NotImplementedError()
+
+class MacInput(Input):
+    """Concrete Product"""
+
+    def validate(self):
+        print("Mac input validated")
+
+class WindowsInput(Input):
+    """Concrete Product"""
+
+    def validate(self):
+        print("Windows input validated")
+
+class AbstractGUIFactory(ABC):
+    """Abstract Factory"""
+
+    @abstractmethod
+    def create_button(self) -> Button:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def create_input(self) -> Input:
+        raise NotImplementedError()
+
+class MacGUIFactory(AbstractGUIFactory):
+    """Concrete Factory"""
+
+    def create_button(self) -> Button:
+        return MacButton()
+
+    def create_input(self) -> Input:
+        return MacInput()
+
+class WindowsGUIFactory(AbstractGUIFactory):
+    """Concrete Factory"""
+
+    def create_button(self) -> Button:
+        return WindowsButton()
+
+    def create_input(self) -> Input:
+        return WindowsInput()
+
+def process_form(factory: AbstractGUIFactory):
+    input = factory.create_input()
+    input.validate()
+    button = factory.create_button()
+    button.click()
+
+factory = WindowsGUIFactory()
+# factory = MacGUIFactory()  # easily replacable
+
+process_form(factory)
+# Output:
+# Mac input validated
+# Mac button clicked
+```
+
+<br>
+
+**Explanation**
+- `Button`, `Input`: These are abstract products that a factory will create.
+- `WindowsButton`, `MacButton`, etc.: These are the actual implementations of the products for each platform.
+- `AbstractGUIFactory`: This is an abstract factory or factory for factories. It has methods for creating the abstract products.
+- `WindowsGUIFactory`, `MacGUIFactory`: These are concrete factories.
+- `process_form`: This function is used to render a form using given factory.
+
+<br>
+
+**Advantages**
+- Separation of concerns: Each factory handles its own plotform.
+- Extensibility: New platform like Linux can easily be added with modifying existing code.
+- Interchangeability: One factory can easily be switch with another factory.
+
+
+<br>
+
 
