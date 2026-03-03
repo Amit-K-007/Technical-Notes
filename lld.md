@@ -3,6 +3,7 @@
 - [Design Patterns](#design-patterns)
 - [C - Factory Method](#c---factory-method)
 - [C - Abstract Factory](#c---abstract-factory)
+- [C - Singleton](#c---singleton)
 
 
 <br>
@@ -440,4 +441,39 @@ process_form(factory)
 
 <br>
 
+
+### C - Singleton
+
+**Overview**
+- It ensures a class has only one instance and provides a global access point to it.
+- It restricts object creation by controlling instantiation internally (usually via a static method and private constructor).
+- The single instance is typically stored as a class-level variable.
+- Used when exactly one shared resource is required across the system.
+- Common use cases include configuration managers, logging systems, database connection managers, and caching layers.
+- Instance creation should be made thread-safe, while using with multithreading.
+
+```py
+class MyClass:
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+a = MyClass()
+b = MyClass()
+
+print(a is b)  # True
+```
+
+**Explanation**
+- `_instance` class variable holds the class instance.
+- Whenever a new object of class is to be created, `__new__()` method is called. Inside this method, we check if class instance is already created.
+- If the instance is not created, we create a new class instance, assign it to `_instance` variable and return it.
+- If the instance is already created, we simply return that instance.
+- `super()` is used to call the `__new__()` method of the parent class (which is default `object` class in above example)
+
+
+<br>
 
