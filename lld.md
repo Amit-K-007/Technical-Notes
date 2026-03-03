@@ -334,8 +334,7 @@ class BalancedAnimalCreator(AnimalCreator):
 - It defines an interface for creating families of related objects.
 - Factory pattern focuses on creating individual objects (e.g. button), while abstract factory focuses on creating a set of related objects (e.g. button & input & popup).
 - It is like a factory for factories.
-
-<br>
+- https://refactoring.guru/images/patterns/diagrams/abstract-factory/structure-1.5x.png
 
 ```py
 from abc import ABC, abstractmethod
@@ -422,8 +421,6 @@ process_form(factory)
 # Mac button clicked
 ```
 
-<br>
-
 **Explanation**
 - `Button`, `Input`: These are abstract products that a factory will create.
 - `WindowsButton`, `MacButton`, etc.: These are the actual implementations of the products for each platform.
@@ -451,6 +448,7 @@ process_form(factory)
 - Used when exactly one shared resource is required across the system.
 - Common use cases include configuration managers, logging systems, database connection managers, and caching layers.
 - Instance creation should be made thread-safe, while using with multithreading.
+- https://refactoring.guru/images/patterns/diagrams/singleton/structure-en-2x.png?id=cae4853e43f06db09f249668c35d61a1
 
 ```py
 class MyClass:
