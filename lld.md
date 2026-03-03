@@ -262,60 +262,61 @@ class UserService:
 
 ### C - Factory
 
-- It defines an interface for creating objects but lets subclasses decide which concrete class to instantiate.
-- It replaces direct object creation with a factory method call.
-- The method returns objects that share a common interface (Product).
-- The Creator class contains core business logic and calls the factory method within that workflow.
-- Primarily used in framework or extensible system design where the base class defines the workflow and subclasses customize object creation.
+- Factory Method is a creational pattern that defines an interface for creating objects but lets subclasses decide which concrete class to instantiate.
+- It replaces direct object creation with a factory method call, removing conditional logic from client code.
+- The factory method returns objects that share a common interface (Product), ensuring polymorphism.
+- The Creator class contains core business logic and calls the factory method as part of its workflow.
+- Used when object creation logic may vary, is not known in advance, or when designing extensible/framework-level systems where subclasses customize instantiation.
 - https://refactoring.guru/images/patterns/diagrams/factory-method/structure-2x.png
 
 ```py
-from abc import ABC, abstractmethod
-
 # Product
-class Notification(ABC):
+class Animal(ABC):
     @abstractmethod
-    def send(self):
+    def speak(self):
         pass
 
 # Concrete Products
-class EmailNotification(Notification):
-    def send(self):
-        print("Sending Email")
+class Dog(Animal):
+    def speak(self):
+        return "Woof"
 
-class SMSNotification(Notification):
-    def send(self):
-        print("Sending SMS")
+class Cat(Animal):
+    def speak(self):
+        return "Meow"
 
 # Creator
-class NotificationService(ABC):
-
-    def notify(self):
-        notification = self.create_notification()
-        notification.send()
+class AnimalCreator(ABC):
+    def generate_animal_sound(self):
+        animal = self.create_animal()
+        return animal.speak()
 
     @abstractmethod
-    def create_notification(self) -> Notification:
+    def create_animal(self) -> Animal:
         pass
 
 # Concrete Creators
-class EmailService(NotificationService):
-    def create_notification(self):
-        return EmailNotification()
+class RandomAnimalCreator(AnimalCreator):
+    def create_animal(self):
+        return random.choice([Dog(), Cat()])
 
-class SMSService(NotificationService):
-    def create_notification(self):
-        return SMSNotification()
+class BalancedAnimalCreator(AnimalCreator):
+    _toggle = True
 
-# Client Code
-email_service = EmailService()
-email_service.notify()
+    def create_animal(self):
+        if BalancedAnimalCreator._toggle:
+            BalancedAnimalCreator._toggle = False
+            return Dog()
+        else:
+            BalancedAnimalCreator._toggle = True
+            return Cat()
 ```
 
-- `NotificationService` defines the workflow (`notify()`).
-- Subclasses decide which notification to create.
-- No conditional logic is used.
-- New notification types can be added without modifying existing classes.
+- `AnimalCreator` defines the workflow (`generate_animal_sound()`).
+- Subclasses decide how animals are instantiated
+- Business logic of selection varies between subclasses.
+- No conditional logic in client code.
+- New animal creation strategies can be added without modifying existing classes.
 
 
 <br>
