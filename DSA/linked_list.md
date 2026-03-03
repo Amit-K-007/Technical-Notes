@@ -204,3 +204,21 @@ L = kC - x
 
 
 <br>
+
+
+### Palindrome linked list
+
+- Problem: Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+- Link: https://leetcode.com/problems/palindrome-linked-list/
+
+---
+
+- **Algorithm**: Slow fast pointer + Reverse linked list
+- Use **Slow fast pointer** technique to get the middle of the linked list.
+- Use **Reverse linked list** technique (using a `prev` & `next` pointer) to reverse the right half of the linked list.
+- Use 2 pointers pointing to the start of both the halves.
+- Iterate through the linked lists and check for palindrome.
+
+
+<br>
+
