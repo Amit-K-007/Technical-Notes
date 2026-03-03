@@ -222,3 +222,17 @@ L = kC - x
 
 <br>
 
+
+### Length of Loop in Linked List
+
+- Problem: Find the length of loop in linked list, if exists.
+- Link: https://takeuforward.org/linked-list/length-of-loop-in-linked-list
+
+---
+
+- **Algorithm**: Slow fast pointer
+- Use slow & fast pointers; if they meet, a cycle exists.
+- From the meeting point, move one pointer around the loop until it returns to the same node and count the steps — that count is the loop length.
+
+
+<br>
