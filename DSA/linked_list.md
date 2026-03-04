@@ -263,3 +263,27 @@ If no intersection exists, return None.
 
 <br>
 
+
+### Add 1 to a number represented by LL
+
+- Problem: Given the head of a singly linked list where each node represents a digit of a non-negative integer (most significant digit first), return the head of the linked list after adding 1 to the number.
+- Link: https://takeuforward.org/data-structure/add-1-to-a-number-represented-by-ll
+
+---
+
+- **Algorithm**: Recursive (Backtracking Carry)
+- Use recursion to reach the last node first, then add 1 while returning carry backward.
+- This simulates right-to-left addition without reversing.
+- Add extra node at start, if starting node also generates a carry
+
+---
+
+- **Approach 2**: Iterative
+- Reverse the linked list
+- Add 1 like normal addition
+- Handle carry
+- Reverse again
+
+
+<br>
+
