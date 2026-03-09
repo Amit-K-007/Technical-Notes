@@ -4,6 +4,7 @@
 - [C - Factory Method](#c---factory-method)
 - [C - Abstract Factory](#c---abstract-factory)
 - [C - Singleton](#c---singleton)
+- [C - Builder](#c---builder)
 
 
 <br>
@@ -474,4 +475,98 @@ print(a is b)  # True
 
 
 <br>
+
+
+### C - Builder
+
+**Overview**
+- It is used to construct complex objects step by step.
+- It separates object construction from its representation (final configuration of the object).
+- The same construction process can create different representations.
+- It avoids constructors with too many parameters (Telescoping Constructor problem).
+- Primarily used when an object has many optional fields or complex setup logic.
+- https://refactoring.guru/images/patterns/diagrams/builder/structure-2x.png
+
+**Stucture**
+- **Product** → The complex object being built
+- **Builder Interface** → Defines construction steps
+- **Concrete Builder** → Implements the building steps
+- **Director** (Optional) → Controls the building sequence
+
+```py
+# Product
+class Computer:
+    def __init__(self):
+        self.cpu = None
+        self.ram = None
+        self.storage = None
+        self.gpu = None
+
+    def __str__(self):
+        return f"CPU: {self.cpu}, RAM: {self.ram}, Storage: {self.storage}, GPU: {self.gpu}"
+
+# Builder
+class ComputerBuilder:
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.computer = Computer()
+
+    def add_cpu(self, cpu):
+        self.computer.cpu = cpu
+
+    def add_ram(self, ram):
+        self.computer.ram = ram
+
+    def add_storage(self, storage):
+        self.computer.storage = storage
+
+    def add_gpu(self, gpu):
+        self.computer.gpu = gpu
+
+    def get_result(self):
+        result = self.computer
+        self.reset()          # prepare builder for next product
+        return result
+
+# Director
+class Director:
+    def __init__(self, builder: ComputerBuilder):
+        self.builder = builder
+
+    def build_gaming_pc(self):
+        self.builder.add_cpu("Intel i9")
+        self.builder.add_ram("32GB")
+        self.builder.add_storage("1TB SSD")
+        self.builder.add_gpu("NVIDIA RTX 4090")
+
+    def build_office_pc(self):
+        self.builder.add_cpu("Intel i5")
+        self.builder.add_ram("16GB")
+        self.builder.add_storage("512GB SSD")
+
+# Client Code
+builder = ComputerBuilder()
+director = Director(builder)
+
+director.build_gaming_pc()
+gaming_pc = builder.get_result()
+print(gaming_pc)
+
+director.build_office_pc()
+office_pc = builder.get_result()
+print(office_pc)
+
+# CPU: Intel i9, RAM: 32GB, Storage: 1TB SSD, GPU: NVIDIA RTX 4090
+# CPU: Intel i5, RAM: 16GB, Storage: 512GB SSD, GPU: None
+```
+
+- `Computer`: The complex object being built.
+- `ComputerBuilder`: Provides methods to construct parts of the product and stores it internally.
+- `Director`: Defines the order of construction steps but does not return the product.
+
+
+<br>
+
 
