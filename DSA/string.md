@@ -26,3 +26,18 @@
 <br>
 
 
+### Reverse the order of words
+- Problem:
+    ```
+    input = "a good   example"
+    output = "example good a"
+    ```
+
+---
+
+- **Algorithm**: Reverse of reverse is the original.
+- Reverse the whole string while handling the spaces.
+- Reverse individual words.
+
+
+<br>
