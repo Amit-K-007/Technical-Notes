@@ -41,3 +41,20 @@
 
 
 <br>
+
+
+### Rotate string
+
+- Problem: Given two strings s and goal, return true if and only if s can become goal after some number of shifts on s. A shift on s consists of moving the leftmost character of s to the rightmost position.
+- Link: https://leetcode.com/problems/rotate-string/
+
+---
+
+- **Algorithm**: Rotated string
+- When searching in a rotated string or array, do `double = s+s`.
+- Iterate over `double`, the rotated part starting from index `i` will be `double[i:i+n]`.
+
+
+<br>
+
+
