@@ -5,6 +5,7 @@
 - [C - Abstract Factory](#c---abstract-factory)
 - [C - Singleton](#c---singleton)
 - [C - Builder](#c---builder)
+- [C - Prototype](#c---prototype)
 
 
 <br>
@@ -570,3 +571,80 @@ print(office_pc)
 <br>
 
 
+### C - Prototype
+
+**Overview**
+- It creates new objects by cloning an existing object (prototype) instead of creating them from scratch.
+- It avoids costly object creation when object initialization is expensive or complex.
+- The prototype object exposes a `clone()` method that returns a copy of itself, by using a copy constructor (constructor that accepts another object).
+```
+# Main constructor
+ConcretePrototype()
+
+# Copy constructor
+ConcretePrototype(Prototype source) {
+    # Copy fields from source object
+}
+
+# Clone method
+clone() {
+    return new ConcretePrototype(this)
+}
+```
+- But, as python don't support constructor overloading, we can use `deepcopy` module.
+- https://refactoring.guru/images/patterns/diagrams/prototype/structure-2x.png
+
+**Structure**
+- Prototype Interface → Declares the `clone()` method
+- Concrete Prototype → Implements cloning logic
+- Client → Creates objects by cloning prototypes
+
+**When to use**
+- When object creation is costly or time-consuming.
+- When classes are unknown at runtime, coming through common interface
+- When creating an object involves a complex configuration.
+
+```py
+import copy
+
+class Car:
+    def __init__(self, brand, model, features):
+        self.brand = brand
+        self.model = model
+        self.features = features  # list of features
+
+    def __str__(self):
+        return f"{self.brand} {self.model} with features {self.features}"
+
+    def clone(self):
+        # Return a deep copy of the object
+        return copy.deepcopy(self)
+
+# Create a prototype car
+prototype_car = Car(
+    brand="Tesla",
+    model="Model S",
+    features=["Autopilot", "Electric", "Panoramic Roof"],
+)
+
+# Clone the prototype to create a new car
+car1 = prototype_car.clone()
+car1.model = "Model X"
+car1.features.append("ABS")
+
+print(prototype_car)  # Original remains unchanged
+print(car1)  # Modified clone
+
+# Output:
+# Tesla Model S with features ['Autopilot', 'Electric', 'Panoramic Roof']
+# Tesla Model X with features ['Autopilot', 'Electric', 'Panoramic Roof', 'ABS']
+```
+
+**Explanation**
+- `Car` is our product.
+- `prototype_car` is the prototype object. New objects will be cloned from this object.
+- `car1` is the new object created via cloning `prototype_car`.
+- After creating `car1`, we can modify it's properties without affecting the prototype.
+
+
+<br>
