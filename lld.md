@@ -1,6 +1,7 @@
 ## Index
 - [SOLID Principles](#solid-principles)
 - [Design Patterns](#design-patterns)
+- [Creational Patterns](#creational-patterns)
 - [C - Factory Method](#c---factory-method)
 - [C - Abstract Factory](#c---abstract-factory)
 - [C - Singleton](#c---singleton)
@@ -261,6 +262,19 @@ class UserService:
 ### Design Patterns
 - Reference: https://refactoring.guru/design-patterns/catalog
 - Video Reference: https://www.youtube.com/playlist?list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc
+
+
+<br>
+
+
+### Creational Patterns
+- It deals with object creation mechanisms.
+- Main Creational Patterns:
+1. **Singleton** → Ensures a class has only one instance and provides global access to it.
+2. **Factory Method** → Lets subclasses decide which object to instantiate.
+3. **Abstract Factory** → Creates families of related objects without specifying their concrete classes.
+4. **Builder** → Constructs complex objects step by step.
+5. **Prototype** → Creates objects by cloning existing instances.
 
 
 <br>
