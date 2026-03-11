@@ -74,5 +74,25 @@
 <br>
 
 
+### Roman number to integer
+
+- Problem: Convert roman number string to its representative integer. The string only contains `I(1), V(5), X(10), L(50), C(100), D(500), M(1000))`.
+```py
+input = "MCMXCIV"
+output = 1994
+```
+
+---
+
+- **Algorithm**: Simple string traversal.
+- Create a mapping of Roman symbols to integers.
+- Traverse the string from left to right.
+- For each character:
+  - If its value is less than the next character, subtract it.
+  - Otherwise, add it.
+- Sum all values to get the final integer.
+
+
+<br>
 
 
