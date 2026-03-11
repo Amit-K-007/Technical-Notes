@@ -58,3 +58,21 @@
 <br>
 
 
+### Sort characters by frequency
+
+- Problem: Given a string s, sort it in decreasing order based on the frequency of the characters. Return the sorted string. If there are multiple answers, return any of them.
+- Link: https://leetcode.com/problems/sort-characters-by-frequency/
+
+---
+
+- **Algorithm**: String + hashmap
+- Calculate frquency of characters using `Counter(s)` in python OR hashmap.
+- Create an array of `(-freq, key)` and sort the array.
+- Iterate through the sorted array and construct the output.
+
+
+<br>
+
+
+
+
