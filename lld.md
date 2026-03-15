@@ -664,7 +664,7 @@ print(car1)  # Modified clone
 <br>
 
 
-### S - Adapater
+### S - Adapter
 
 **Overview**
 - It allows objects with incompatible interfaces to work together.
@@ -687,12 +687,10 @@ class PaymentProcessor:
     def pay(self, amount):
         pass
 
-
 # Adaptee (Existing class with incompatible interface)
 class PayPalGateway:
     def make_payment(self, amount):
         print(f"Payment of {amount} done using PayPal")
-
 
 # Adapter
 class PayPalAdapter(PaymentProcessor):
@@ -701,7 +699,6 @@ class PayPalAdapter(PaymentProcessor):
 
     def pay(self, amount):
         self.paypal_gateway.make_payment(amount)
-
 
 # Client Code
 gateway = PayPalGateway()
@@ -716,6 +713,37 @@ payment.pay(100)
 - **PayPalGateway** → Existing class with incompatible method `make_payment()`.
 - **PayPalAdapter** → Converts `pay()` calls into `make_payment()`.
 - The client only interacts with the target interface.
+
+**Types of Adapter**
+1. **Object Adapter (Composition)**
+- It is the above introduced type of adapter, used most commonly.
+- The adapter contains an instance of the adaptee and forwards calls to it.
+
+2. **Class Adapter (Multiple Inheritance)**
+- The adapter inherits from both Target and Adaptee and adapts the method directly.
+- This works in languages that support multiple inheritance (like Python or C++).
+
+```py
+# Target Interface
+class PaymentProcessor:
+    def pay(self, amount):
+        pass
+
+# Adaptee
+class PayPalGateway:
+    def make_payment(self, amount):
+        print(f"Payment of {amount} done using PayPal")
+
+# Adapter using multiple inheritance
+class PayPalAdapter(PaymentProcessor, PayPalGateway):
+
+    def pay(self, amount):
+        self.make_payment(amount)
+
+# Client
+payment = PayPalAdapter()
+payment.pay(100)
+```
 
 
 <br>
