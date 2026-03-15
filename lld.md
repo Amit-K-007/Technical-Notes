@@ -7,7 +7,7 @@
 - [C - Singleton](#c---singleton)
 - [C - Builder](#c---builder)
 - [C - Prototype](#c---prototype)
-
+- [S - Adapter](#s---adapter)
 
 <br>
 
@@ -662,3 +662,61 @@ print(car1)  # Modified clone
 
 
 <br>
+
+
+### S - Adapater
+
+**Overview**
+- It allows objects with incompatible interfaces to work together.
+- It converts/wraps the interface of a class into another interface that the client expects.
+- Just like a universal socket adapter acts as a bridge between US electricity plug and an Indian cord.
+- https://refactoring.guru/images/patterns/diagrams/adapter/structure-object-adapter-2x.png
+
+**When to use**
+- You want to reuse an existing class but its interface doesn’t match the one you need.
+- You need to integrate a third-party class with your system. (e.g. custom frappe client).
+
+**Components**
+- **Target Interface:** The interface your client code expects.
+- **Adaptee:** The existing class with an incompatible interface.
+- **Adapter:** A class that implements the target interface and translates the calls to the adaptee.
+
+```py
+# Target Interface
+class PaymentProcessor:
+    def pay(self, amount):
+        pass
+
+
+# Adaptee (Existing class with incompatible interface)
+class PayPalGateway:
+    def make_payment(self, amount):
+        print(f"Payment of {amount} done using PayPal")
+
+
+# Adapter
+class PayPalAdapter(PaymentProcessor):
+    def __init__(self, paypal_gateway):
+        self.paypal_gateway = paypal_gateway
+
+    def pay(self, amount):
+        self.paypal_gateway.make_payment(amount)
+
+
+# Client Code
+gateway = PayPalGateway()
+payment = PayPalAdapter(gateway)
+
+payment.pay(100)
+# Payment of 100 done using PayPal
+```
+
+**Explanation**
+- **PaymentProcessor** → Target interface expected by the system.
+- **PayPalGateway** → Existing class with incompatible method `make_payment()`.
+- **PayPalAdapter** → Converts `pay()` calls into `make_payment()`.
+- The client only interacts with the target interface.
+
+
+<br>
+
