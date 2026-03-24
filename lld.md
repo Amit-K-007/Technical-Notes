@@ -757,6 +757,7 @@ payment.pay(100)
 - It allows to add new behaviour to objects, without modifying their existing code.
 - It wraps around exisiting code to add more functionality.
 - It is used in place of creating all the permutations of subclasses.
+- https://refactoring.guru/images/patterns/diagrams/decorator/structure-2x.png
 
 **When to use**
 - You want to add responsibilities to objects dynamically.
