@@ -8,6 +8,8 @@
 - [C - Builder](#c---builder)
 - [C - Prototype](#c---prototype)
 - [S - Adapter](#s---adapter)
+- [S - Decorator](#s---decorator)
+
 
 <br>
 
@@ -748,3 +750,88 @@ payment.pay(100)
 
 <br>
 
+
+### S - Decorator
+
+**Overview**
+- It allows to add new behaviour to objects, without modifying their existing code.
+- It wraps around exisiting code to add more functionality.
+- It is used in place of creating all the permutations of subclasses.
+
+**When to use**
+- You want to add responsibilities to objects dynamically.
+- You want to follow the **Open/Closed Principle**: classes should be open for extension, but closed for modification.
+- Subclassing would lead to an explosion of classes to cover all combinations of behaviors.
+
+**Key components**
+- Component: The original object interface.
+- ConcreteComponent: The actual object being wrapped.
+- Decorator: Has a reference to a `Component` and implements the same interface.
+- ConcreteDecorator: Extends the behavior of the Component.
+
+```py
+from abc import ABC, abstractmethod
+
+# Component
+class Handler(ABC):
+    @abstractmethod
+    def handle(self, request):
+        pass
+
+# Concrete Component
+class BasicHandler(Handler):
+    def handle(self, request):
+        return f"Handling request: {request}"
+
+# Base Decorator
+class HandlerDecorator(Handler):
+    def __init__(self, handler):
+        self._handler = handler
+
+    def handle(self, request):
+        return self._handler.handle(request)
+
+# Concrete Decorator 1: Logging
+class LoggingDecorator(HandlerDecorator):
+    def handle(self, request):
+        print(f"[LOG] Received request: {request}")
+        response = self._handler.handle(request)
+        print(f"[LOG] Response: {response}")
+        return response
+
+# Concrete Decorator 2: Authentication
+class AuthDecorator(HandlerDecorator):
+    def handle(self, request):
+        user = request.get("user")
+        if not user or not user.get("is_authenticated"):
+            return "401 Unauthorized"
+        return self._handler.handle(request)
+
+# --- Client Code ---
+
+# A simulated request object
+request = {
+    "user": {"name": "Alice", "is_authenticated": True},
+    "payload": "GET /home"
+}
+
+# Compose decorators
+handler = BasicHandler()
+handler = AuthDecorator(handler)
+handler = LoggingDecorator(handler)
+
+# Execute request
+print(handler.handle(request))
+
+
+# Output:
+# [LOG] Received request: {'user': {'name': 'Alice', 'is_authenticated': True}, 'payload': 'GET /home'}
+# [LOG] Response: Handling request: {'user': {'name': 'Alice', 'is_authenticated': True}, 'payload': 'GET /home'}
+# Handling request: {'user': {'name': 'Alice', 'is_authenticated': True}, 'payload': 'GET /home'}
+
+# Unauthenticated output:
+# "401 Unauthorized"
+```
+
+
+<br>
