@@ -96,3 +96,43 @@ output = 1994
 <br>
 
 
+### Longest Palindromic Substring
+
+- Problem: Given a string `s`, return the longest palindromic substring in `s`
+- Link: https://leetcode.com/problems/longest-palindromic-substring/description/
+
+---
+
+- **Algorithm**: Check palinedromes by considering all 2n + 1 centers
+- At each step, find the longest palindromic substring with centre as `s[i]`. Odd length palindromic substring.
+- Also, find the longest palindromic substring with centre as `s[i], s[i+1]`. Even length palindromic substring.
+- Keep track of longest palindromic substring and return it.
+
+---
+
+- **Approach 2**: Use a 2D DP table to store whether a substring `s[i…j]` is a palindrome.
+- Traverse the string using gap strategy `(j - i)`:
+    - If `i == j` → single character → palindrome.
+    - If `j - i == 1` → two characters → palindrome if both equal.
+    - For length ≥ 3 → palindrome if:
+        `s[i] == s[j] AND dp[i+1][j-1] == True`
+
+---
+
+- **Approach 3**: Manacher’s Algorithm
+- Use symmetry and previously computed palindrome information to find the longest palindromic substring in linear time.
+- Transform string by adding separators (`#`) to handle even & odd palindromes uniformly.
+- Maintain:
+    - `P[i]` → radius of palindrome centered at index `i`
+    - `C` → center of current palindrome
+    - `R` → right boundary of current palindrome
+- For each index i:
+    - Find mirror index: `mirror = 2*C - i`
+    - If `i < R`, initialize:
+        `P[i] = min(R - i, P[mirror])`
+    - Expand palindrome centered at `i` while characters match
+    - If palindrome expands beyond `R`, update `C` and `R`
+- After processing all indices, find the maximum value in `P[]` and map it back to the original string.
+
+
+<br>
