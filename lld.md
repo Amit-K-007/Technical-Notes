@@ -845,6 +845,7 @@ print(handler.handle(request))
 - It treats individual objects and compositions of objects (i.e groups of objects) uniformly.
 - It is useful when dealing with tree structures like **file systems**, **GUI elements**, etc.
 - Here, both the leaf node (file, button) and composite node (folder, div) should be treated similarly.
+- https://refactoring.guru/images/patterns/diagrams/composite/structure-en-1.5x.png?id=8e06210d59cadf817621d810accfa5f6
 
 **Components**
 - Component: Interface for all objects in the composition.
