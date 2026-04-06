@@ -9,6 +9,7 @@
 - [C - Prototype](#c---prototype)
 - [S - Adapter](#s---adapter)
 - [S - Decorator](#s---decorator)
+- [S - Composite](#s---composite)
 
 
 <br>
@@ -832,6 +833,75 @@ print(handler.handle(request))
 
 # Unauthenticated output:
 # "401 Unauthorized"
+```
+
+
+<br>
+
+
+### S - Composite
+
+**Overview**
+- It treats individual objects and compositions of objects (i.e groups of objects) uniformly.
+- It is useful when dealing with tree structures like **file systems**, **GUI elements**, etc.
+- Here, both the leaf node (file, button) and composite node (folder, div) should be treated similarly.
+
+**Components**
+- Component: Interface for all objects in the composition.
+- Leaf: Leaf object in the composition.
+- Composite: Composite object. Has a list of children.
+
+<br>
+
+```py
+from abc import ABC, abstractmethod
+
+# Component
+class FileSystemComponent(ABC):
+    @abstractmethod
+    def show(self, indent=0):
+        pass
+
+# Leaf
+class File(FileSystemComponent):
+    def __init__(self, name):
+        self.name = name
+
+    def show(self, indent=0):
+        print(' ' * indent + f"File: {self.name}")
+
+# Composite
+class Directory(FileSystemComponent):
+    def __init__(self, name):
+        self.name = name
+        self.children = []
+
+    def add(self, component: FileSystemComponent):
+        self.children.append(component)
+
+    def remove(self, component: FileSystemComponent):
+        self.children.remove(component)
+
+    def show(self, indent=0):
+        print(' ' * indent + f"Directory: {self.name}")
+        for child in self.children:
+            child.show(indent + 2)
+
+# Usage
+if __name__ == "__main__":
+    file1 = File("file1.txt")
+    file2 = File("file2.txt")
+    file3 = File("file3.txt")
+
+    dir1 = Directory("Documents")
+    dir1.add(file1)
+    dir1.add(file2)
+
+    dir2 = Directory("Downloads")
+    dir2.add(file3)
+    dir2.add(dir1)  # Nested directory
+
+    dir2.show()
 ```
 
 
