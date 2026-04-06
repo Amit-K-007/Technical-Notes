@@ -33,3 +33,26 @@
 
 
 <br>
+
+### Max Consecutive Ones III
+
+- Problem: Find maximum number of consecutive 1's in the array if you can flip at most k 0's.
+- Link: https://leetcode.com/problems/max-consecutive-ones-iii/
+
+---
+
+- **Algorithm**: Variable length sliding window
+- Maintain a window `[left, right]`
+- Expand `right` pointer
+- Count number of zeros in the window
+- If zeros exceed `k`, shrink window from `left`
+
+--- 
+
+- **Approach 2**: Queue Based window
+- Use `queue` data structure for `O(1)` shrinking.
+- Store indices of zeros in a queue
+- When zeros exceed `k`, remove the oldest zero (front of queue)
+
+
+<br>
