@@ -56,3 +56,19 @@
 
 
 <br>
+
+
+### Longest Repeating Character Replacement
+
+- Problem: Find the length of the longest substring where you can make all characters the same using at most k replacements of any characters.
+- Link: https://leetcode.com/problems/longest-repeating-character-replacement/
+
+---
+
+- **Algorithm**: Variable length sliding window
+- Keep track of frequency of characters and the max occurring character
+- Window is valid if: `window_size - max_freq ≤ k`
+- Expand window greedily, shrink when invalid
+
+
+<br>
