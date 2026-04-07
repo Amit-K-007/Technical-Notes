@@ -72,3 +72,21 @@
 
 
 <br>
+
+
+###  Maximum Points You Can Obtain from Cards
+
+- Problem: Given an array cardPoints and an integer k, pick exactly k cards from either the start or end of the array to maximize your total score.
+- Link: https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
+
+---
+
+- **Algorithm**: Sliding Window on Ends
+- Start by taking all k cards from the front
+- Gradually shift selection: remove one from front, add one from back
+- This keeps total cards = k, but changes front vs back balance
+- Track the maximum score during the process
+
+
+<br>
+
