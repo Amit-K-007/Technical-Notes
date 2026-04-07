@@ -10,6 +10,7 @@
 - [S - Adapter](#s---adapter)
 - [S - Decorator](#s---decorator)
 - [S - Composite](#s---composite)
+- [S - Proxy](#s---proxy)
 
 
 <br>
@@ -852,8 +853,6 @@ print(handler.handle(request))
 - Leaf: Leaf object in the composition.
 - Composite: Composite object. Has a list of children.
 
-<br>
-
 ```py
 from abc import ABC, abstractmethod
 
@@ -907,3 +906,84 @@ if __name__ == "__main__":
 
 
 <br>
+
+
+### S - Proxy
+
+**Overview**
+- It lets you provide a substitute or placeholder for another object
+- A proxy controls access to the original object, allowing you to perform something either before or after the request gets through to the original object.
+- The proxy implements the same interface as the real object, and the client interacts with the proxy instead of the real object.
+- Useful when direct access to an object is expensive, sensitive, or needs control.
+- https://refactoring.guru/images/patterns/diagrams/proxy/structure-1.5x.png?id=0db7bf3c1193b2a1961894349f1e07ad
+
+**Types of Proxy**
+- Lazy Initialization (Virtual Proxy) → Use when object creation is expensive; delay instantiation until actually needed.
+- Access Control (Protection Proxy) → Use when you need to restrict access based on permissions or credentials.
+- Remote Proxy → Use when interacting with objects located on remote servers; hides network complexity from client.
+- Logging Proxy → Use when you want to track or log requests made to an object without modifying it.
+- Caching Proxy → Use when repeated requests return same result; cache responses to improve performance.
+
+**Components**
+- Subject: Common interface for the Real Object and Proxy.
+- Real Subject: The actual object that performs the real operations.
+- Proxy: Controls access to the Real Subject.
+
+```py
+from abc import ABC, abstractmethod
+import time
+
+# Subject
+class Image(ABC):
+    @abstractmethod
+    def display(self):
+        pass
+
+# Real Subject
+class RealImage(Image):
+    def __init__(self, filename):
+        self.filename = filename
+        self.load_from_disk()
+
+    def load_from_disk(self):
+        print(f"Loading image from disk: {self.filename}")
+        time.sleep(1)  # Simulate delay
+
+    def display(self):
+        print(f"Displaying image: {self.filename}")
+
+# Proxy
+class ProxyImage(Image):
+    def __init__(self, filename):
+        self.filename = filename
+        self.real_image = None
+
+    def display(self):
+        if self.real_image is None:
+            print("Creating RealImage object...")
+            self.real_image = RealImage(self.filename)
+        else:
+            print("RealImage already created.")
+        self.real_image.display()
+
+# Usage
+if __name__ == "__main__":
+    print("Creating proxy...")
+    image = ProxyImage("photo.jpg")
+    
+    print("\nFirst display call (loads image):")
+    image.display()
+    
+    print("\nSecond display call (uses cached image):")
+    image.display()
+```
+
+**Explanation**
+- `Image` is our subject interface.
+- `RealImage` is the real subject.
+- `ProxyImage` is the proxy that controls the access to `RealImage`.
+
+
+<br>
+
+
