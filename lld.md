@@ -11,6 +11,7 @@
 - [S - Decorator](#s---decorator)
 - [S - Composite](#s---composite)
 - [S - Proxy](#s---proxy)
+- [B - Observer](#b---observer)
 
 
 <br>
@@ -982,6 +983,101 @@ if __name__ == "__main__":
 - `Image` is our subject interface.
 - `RealImage` is the real subject.
 - `ProxyImage` is the proxy that controls the access to `RealImage`.
+
+
+<br>
+
+
+### B - Observer
+
+**Overview**
+- It allows **Subject** to notify a list of **Observers** when an event occures in subject (Change of State).
+- Subject & Observers are coupled loosly.
+- Promotes **Open/Close** principle, easy to add new observers without modifying the Subject.
+- https://refactoring.guru/images/patterns/diagrams/observer/structure-2x.png?id=228af9bded4d6ee6daf43a0e23cca9ff.
+
+**Components**
+- Subject: interface for subject.
+- Observer: interface for observer.
+- ConcreteSubject (Publisher): maintains a list of observers and notifies them of any changes.
+- ConcreteObserver (Subscriber): object that should be notified.
+
+```py
+from abc import ABC, abstractmethod
+
+# Observer Interface
+class Observer(ABC):
+    @abstractmethod
+    def update(self, message: str):
+        pass
+
+# Concrete Observer
+class EmailSubscriber(Observer):
+    def __init__(self, name):
+        self.name = name
+
+    def update(self, message: str):
+        print(f"{self.name} received email notification: {message}")
+
+# Subject Interface
+class Subject(ABC):
+    @abstractmethod
+    def attach(self, observer: Observer):
+        pass
+
+    @abstractmethod
+    def detach(self, observer: Observer):
+        pass
+
+    @abstractmethod
+    def notify(self, message: str):
+        pass
+
+# Concrete Subject
+class YouTubeChannel(Subject):
+    def __init__(self):
+        self.subscribers = []
+
+    def attach(self, observer: Observer):
+        self.subscribers.append(observer)
+
+    def detach(self, observer: Observer):
+        self.subscribers.remove(observer)
+
+    def notify(self, message: str):
+        for subscriber in self.subscribers:
+            subscriber.update(message)
+
+    # Business logic that changes state
+    def upload_video(self, video_title: str):
+        print(f"Channel: Uploaded a new video: {video_title}")
+        self.notify(f"New video uploaded: {video_title}")
+
+# === Usage ===
+if __name__ == "__main__":
+    # Create subject
+    channel = YouTubeChannel()
+
+    # Create observers
+    alice = EmailSubscriber("Alice")
+    bob = EmailSubscriber("Bob")
+
+    # Attach observers to subject
+    channel.attach(alice)
+    channel.attach(bob)
+
+    # Change state
+    channel.upload_video("Observer Pattern in Python")
+```
+
+**Explanation**
+- `Observer` is the observer interface and `EmailSubscriber` is the concrete implementation.
+- `Subject` is the subject interface and `YouTubeChannel` is the concrete implementation.
+- `alice` and `bob` are notified when a new video is uploaded.
+
+**When to use**
+- Use when a change in one object’s state requires updates in multiple dependent objects, and the set of dependent objects is not fixed or may change dynamically.
+- Use when objects need to observe another object temporarily or conditionally, allowing them to subscribe and unsubscribe at runtime.
 
 
 <br>
