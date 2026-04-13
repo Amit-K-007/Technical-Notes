@@ -6,6 +6,72 @@
 
 <br>
 
+### Prefix Sum + HashMap
+
+- A technique where we maintain a **running cumulative sum (prefix sum)** and use a **hashmap to store frequencies of previous sums**, so we can efficiently find subarrays that satisfy a target condition by checking if a required previous sum exists.
+
+**Core Logic**
+- Keep a running `prefix_sum`
+- At each index, check how many times `(prefix_sum - k)` has appeared
+- Add that frequency to answer and update current prefix in hashmap
+
+**Reason (Why it works)**
+- A subarray sum is:
+  `prefix[j] - prefix[i] = k`
+- Rearranged:
+  `prefix[i] = prefix[j] - k`
+- So for current position j, any previous prefix equal to (current - k) forms a valid subarray
+- Hashmap ensures we count **all such previous occurrences efficiently**
+
+**Key Properties**
+- Time Complexity: O(n)
+- Space Complexity: O(n) (to store prefix sums)
+- Supports negative numbers (unlike sliding window which usually requires non-negative numbers).
+
+**Reference Problems**
+- Subarray Sum Equals K → Classic exact sum problem
+- Count Number of Nice Subarrays (alt approach) → Can also be done with prefix (odd → 1, even → 0)
+- Maximum Size Subarray Sum Equals K → Store first occurrence of prefix
+- Contiguous Array (Equal 0s and 1s) → Convert 0 → -1, reduce to sum = 0
+- Subarrays Divisible by K → Use prefix mod k
+
+
+<br>
+
+
+### Sliding Window + AtMost Trick
+
+- A technique where we use a **two-pointer sliding window to count subarrays satisfying a “≤ k” condition**, and compute exact results by using the relation: **exact(k) = atMost(k) − atMost(k−1)**, leveraging the monotonic nature of non-negative arrays.
+
+**Core Logic**
+- Count subarrays with sum ≤ k using sliding window
+- Do the same for ≤ (k - 1)
+- Subtract:
+  `exact(k) = atMost(k) - atMost(k - 1)`
+
+**Reason (Why it works)**
+- Sliding window can efficiently count **all subarrays with sum ≤ k**
+- But exact `k` is hard to track directly
+- So:
+  - `atMost(k)` includes all valid + extra (sum < k)
+  - `atMost(k-1)` includes only extra
+- Subtracting removes extras → leaves only **exact k**
+- Works because array is **non-negative**, so window expands/shrinks predictably
+
+**Key Properties**
+- Time Complexity: O(n)
+- Space Complexity: O(1) (no extra data structures)
+- Works only for non-negative arrays (binary / positive)
+
+**Reference Problems**
+- Binary Subarrays With Sum → Direct application of atMost trick
+- Count Number of Nice Subarrays → Count subarrays with k odd numbers
+- Subarrays with K Different Integers → Exactly k distinct → atMost(k) - atMost(k-1)
+- Max Consecutive Ones III (variation) → At most k zeros → sliding window
+- Fruit Into Baskets → At most 2 distinct elements
+
+<br>
+
 ## Problems
 
 <br>
