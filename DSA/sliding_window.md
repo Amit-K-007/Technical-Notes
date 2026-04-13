@@ -90,3 +90,30 @@
 
 <br>
 
+
+### Binary subarrays with sum
+
+- Problem: Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
+- Link: https://leetcode.com/problems/binary-subarrays-with-sum
+
+---
+
+- **Algorithm**: Prefix Sum + HashMap
+- Maintain a running prefix sum while traversing the array.
+- For each index, check if `(prefix_sum - goal)` exists in a hashmap.
+- If it exists, it means a subarray ending here has `sum = goal`.
+- Store frequency of each prefix sum to handle multiple occurrences.
+- Initialize hashmap with `{0:1}` to handle subarrays starting from index 0.
+
+---
+
+- **Approach 2**: Sliding Window (At Most Trick)
+- Use identity:
+  exact(goal) = atMost(goal) - atMost(goal - 1)
+- Build helper to count subarrays with sum ≤ k using sliding window.
+- Expand window by moving right pointer; shrink when sum exceeds `k`.
+- For each position, add `(right - left + 1)` valid subarrays.
+- Works because array is binary (non-negative) → window never breaks unpredictably.
+
+
+<br>
