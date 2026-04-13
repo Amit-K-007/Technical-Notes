@@ -117,3 +117,20 @@
 
 
 <br>
+
+
+### Count Number of Nice Subarrays
+
+- Problem: Given an array of integers nums and an integer k. A continuous subarray is called nice if there are k odd numbers on it. Return the number of nice sub-arrays.
+- Link: https://leetcode.com/problems/count-number-of-nice-subarrays
+
+---
+
+- Both approaches are similar to above question **Binary subarrays with sum**
+- Just use count of odd numbers instead of the sum of numbers
+
+
+<br>
+
+
+
