@@ -217,3 +217,27 @@
 
 <br>
 
+
+### Fruit Into Baskets
+- Problem: Find the length of the longest contiguous subarray that contains at most 2 distinct fruit types.
+- Link: https://leetcode.com/problems/fruit-into-baskets/
+
+---
+
+- **Algorithm**: Initialize two variables to store the two recent fruit types seen and their last positions.
+- Traverse the array while expanding the window to include current fruits as long as they match the two types.
+- If a third fruit type appears, update the window to start just after the last occurrence of one of the older fruit types.
+- Track the maximum length of valid windows throughout the traversal.
+
+---
+
+- **Approach 2**: Hashmap + sliding window
+- Initialize two pointers for the window: start and end.
+- Use a hash map to store the frequency of each fruit type within the current window.
+- Iterate through the array using the end pointer.
+- Add the current fruit to the map and update its count.
+- If the map size exceeds 2 (more than 2 fruit types in window), shrink the window from the start pointer until the map becomes valid (size ≤ 2).
+- At each step, track the maximum length of the valid window.
+
+
+<br>
