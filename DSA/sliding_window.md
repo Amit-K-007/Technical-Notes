@@ -241,3 +241,27 @@
 
 
 <br>
+
+
+### Subarrays with K Different Integers
+
+- Problem: Given an integer array nums and an integer k, return the number of good subarrays of nums. A good array is an array where the number of different integers in that array is exactly k.
+- Link: https://leetcode.com/problems/subarrays-with-k-different-integers
+
+---
+
+- **Algorithm**: Sliding Window + AtMost Trick
+- Define a helper function that calculates the number of subarrays with at most K distinct elements using a sliding window.
+- Initialize two pointers to represent the sliding window boundaries.
+- Maintain a frequency map to track the count of each number in the window.
+- Expand the window to the right by iterating over the array.
+- If the current element is new to the window (i.e., not in the frequency map or has zero count), decrement the K counter.
+- While K becomes negative (i.e., more than K distinct elements), shrink the window from the left until the constraint is restored.
+- At each step, the number of valid subarrays ending at the current right index is (right - left + 1). Accumulate this count.
+- Once you have the count for at most K and at most K-1, subtract to get the final result.
+
+
+<br>
+
+
+
