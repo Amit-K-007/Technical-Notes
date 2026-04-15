@@ -12,6 +12,7 @@
 - [S - Composite](#s---composite)
 - [S - Proxy](#s---proxy)
 - [B - Observer](#b---observer)
+- [B - Strategy](#b---strategy)
 
 
 <br>
@@ -1081,5 +1082,58 @@ if __name__ == "__main__":
 
 
 <br>
+
+
+### B - Strategy
+
+**Overview**
+- It defines a family of algorithms and makes them interchangeable at runtime.
+- It encapsulates each algorithm into a separate class (strategy).
+- The client selects the required strategy instead of using conditional logic.
+- Promotes composition over inheritance.
+- Allows changing behavior dynamically at runtime.
+- https://refactoring.guru/images/patterns/diagrams/strategy/structure-2x.png?id=5bd791857c3bab419bcf4fa86877439d
+
+**Components**
+- Strategy Interface → Common interface for all algorithms
+- Concrete Strategies → Different implementations of the algorithm
+- Context → Uses a strategy object
+- Client → Chooses which strategy to use
+
+```py
+# Strategy
+class PaymentStrategy(ABC):
+    @abstractmethod
+    def pay(self, amount):
+        pass
+
+# Concrete Strategies
+class CreditCardPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"Paid {amount} using Credit Card")
+
+class UpiPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"Paid {amount} using UPI")
+
+# Context
+class PaymentService:
+    def __init__(self, strategy: PaymentStrategy):
+        self.strategy = strategy
+
+    def process_payment(self, amount):
+        self.strategy.pay(amount)
+
+# Client code
+payment = PaymentService(CreditCardPayment())
+payment.process_payment(100)
+
+payment.strategy = UpiPayment()  # change strategy at runtime
+payment.process_payment(200)
+```
+
+
+<br>
+
 
 
