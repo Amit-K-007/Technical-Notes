@@ -264,4 +264,19 @@
 <br>
 
 
+### Minimum window substring
 
+- Problem: Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character (atleast) in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+- Link: https://leetcode.com/problems/minimum-window-substring/
+
+---
+
+- **Algorithm**: Character frequency + Missing count
+- Create a `hashmap` that will keep track of frequency of characters in the window.
+- Create a `count` variable that will indicate the count of required characters added in the window.
+- Populate the intial `hashmap` using string `t`. Missing characters from window will always have positive frequency.
+- Use these 2 variables to expand and shrink the window and find the minimum length.
+- **Note**: A `hash_array` holding uppercase & lowercase alphabets will have length `58`, starting from `65`.
+
+
+<br>
