@@ -280,3 +280,33 @@
 
 
 <br>
+
+
+### Minimum Window Subsequence
+
+- Problem: Given two strings s1 and s2, find the smallest contiguous substring of s1 in which s2 appears as a subsequence.
+- Link: https://www.geeksforgeeks.org/problems/minimum-window-subsequence/1
+
+---
+
+- **Algorithm**: Preprocessing + Next Occurrence Table
+- Precompute `next_pos[i][c]` → next index of character `c` starting from position `i`. It will be a (26 * (n + 1)) table.
+- For ex, if `s1` is "aaabcb", then `next_pos[6][b] = -1, next_pos[5][b] = 5, next_pos[4][b] = 5, next_pos[3][b] = 3`, and so on for each character and for each `i` in `s1`
+- For each valid start `(s1[i] == s2[0]) (first letter matched)`, jump directly to next required character of `s2`
+- Avoids scanning `s1` repeatedly → uses O(1) jumps
+- For each start, simulate subsequence matching using table
+- Track minimum window length
+
+---
+
+- **Approach 2**: Variable size window
+- Try to match `s2` as subsequence in `s1` using forward scan
+- Once full match is found → mark end
+- Then backtrack (increase left pointer) to shrink window to minimum
+- Update answer and continue searching
+- Repeat to find smallest valid window
+
+
+<br>
+
+
