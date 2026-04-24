@@ -67,3 +67,41 @@
 
 <br>
 
+
+### Min Stack
+
+- Problem: Design a stack that supports push, pop, top, and retrieving the minimum element in constant time for each O(1).
+- Link: https://leetcode.com/problems/min-stack
+
+---
+
+- **Algorithm**: Maintain main stack + min stack
+- Push to min stack only if new value ≤ current min
+- On pop, remove from min stack only if it matches
+- Top of min stack = current minimum
+- Keeps only necessary minimum values
+
+---
+
+- **Approach 2**: Store (value, min_so_far) pair in stack
+- On push → compute min with previous
+- No separate data structure needed
+- Top always contains current min info
+- Pop automatically restores previous min
+
+---
+
+- **Approach 3**: One Stack + Encoding (space optimized)
+- When pushing a new minimum, store encoded `value = 2*val - min`
+- Encoded value is always less than new min, acts as a marker
+- On pop, if top < min → it’s encoded → restore previous min
+- `top()` returns `min` when encoded value is at top
+- Why it works:
+  - Encoding stores previous min information implicitly
+  - Formula:`encoded = 2*new_min - old_min`
+  - On pop: `old_min = 2*current_min - encoded`
+  - This allows recovering past minimum without extra space
+
+ 
+<br>
+
