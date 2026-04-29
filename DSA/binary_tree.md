@@ -43,3 +43,25 @@
 
 
 <br>
+
+
+### Iterative Postorder Traversal
+
+- Problem: Given the `root` of a binary tree, return the postorder traversal of its nodes' values.
+- Link: https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+---
+
+- **Algorithm**: Perform modified preorder traversal: `Root → Right → Left`
+- Store traversal order in result array
+- Move right first instead of left
+- Reverse final result to obtain postorder
+- Stack helps simulate DFS traversal iteratively
+- Why this works:
+  - Normal preorder: `Root → Left → Right`
+  - Swapping left/right gives:: `Root → Right → Left`
+  - Reversing this sequence produces: `Left → Right → Root`
+  - which is postorder traversal
+
+
+<br>
