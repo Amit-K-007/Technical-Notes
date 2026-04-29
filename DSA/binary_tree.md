@@ -65,3 +65,22 @@
 
 
 <br>
+
+
+### Binary Tree Level Order Traversal
+
+- Problem: Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+- Link: https://leetcode.com/problems/binary-tree-level-order-traversal
+
+---
+
+- **Algorithm**: BFS using Queue
+- Since we need nodes level by level, use a queue so nodes are processed in the same order they are discovered
+- Start by pushing the root into the queue
+- At every iteration, the queue already contains all nodes of the current level
+- Store current queue size and process exactly those many nodes to form one level
+- While processing a node, push its left and right children into the queue so they become part of the next level
+- Repeat until queue becomes empty
+
+
+<br>
