@@ -92,3 +92,31 @@
 
 
 <br>
+
+
+### Preorder, Inorder, and Postorder Traversal in one Traversal
+
+- Problem: Given the root of a Binary Tree, return the preorder, inorder and postorder traversal sequence of the given tree by making just one traversal.
+- Link: https://takeuforward.org/data-structure/preorder-inorder-postorder-traversals-in-one-traversal
+
+---
+
+- **Algorithm**: Stack + Traversal States
+- Keep separate list to maintain each traversal
+- Each node is processed in 3 stages:
+  `preorder → inorder → postorder`
+- so store node along with its current traversal state
+- When node is popped with `state = 1`:
+  - Add to preorder
+  - push same node with `state = 2` to process inorder later
+  - then move to left subtree
+- When node is popped with `state = 2`:
+  - Add to inorder
+  - push same node with `state = 3` to process postorder later
+  - then move to right subtree
+- When node is popped with state = 3:
+  - both subtrees are already processed
+  - Add to postorder
+
+
+<br>
