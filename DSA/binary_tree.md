@@ -63,6 +63,14 @@
   - Reversing this sequence produces: `Left → Right → Root`
   - which is postorder traversal
 
+---
+
+**Approach 2**: Use a stack to simulate recursive postorder traversal (Similar to iter. preorder)
+- Process current node first → add value to result
+- Push left child before right child
+- Stack is LIFO, so right subtree gets processed first
+- Continue until all nodes are visited
+
 
 <br>
 
