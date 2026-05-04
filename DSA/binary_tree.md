@@ -138,3 +138,19 @@
 <br>
 
 
+### Balanced Binary Tree
+
+- Problem: Check if for every node, the height difference of left and right subtree ≤ 1
+- Link: https://leetcode.com/problems/balanced-binary-tree/
+
+---
+
+- **Algorithm**: Combine height + balance check in one DFS
+- For each node, recursively get height of left subtree
+  - If it returns `-1`, stop immediately → subtree already unbalanced
+- Do the same for right subtree
+- After getting both heights, check whether subtree is unbalanced, and if unbalanced, return `-1`
+- If balanced, return actual height
+
+
+<br>
