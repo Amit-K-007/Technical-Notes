@@ -13,6 +13,7 @@
 - [S - Proxy](#s---proxy)
 - [B - Observer](#b---observer)
 - [B - Strategy](#b---strategy)
+- [B - Command](#b---command)
 
 
 <br>
@@ -1136,4 +1137,91 @@ payment.process_payment(200)
 <br>
 
 
+### B - Command
 
+**Overview**
+- It turns a request into a standalone object containing all details of the request.
+- It encapsulates actions as objects, allowing you to parameterize clients with different requests. It means you pass behavior (what to do) as an object, so the client can perform different actions dynamically.
+- It decouples the invoker (who triggers) from the receiver (who performs the action).
+- Supports undo/redo operations by storing command history.
+- Enables queuing, logging, and scheduling of requests.
+
+**Components**
+- Command → Defines a common interface with an `execute()` method.
+- Concrete Command → Implements the command and connects it to a specific receiver and action.
+- Receiver → Contains the actual business logic and performs the work.
+- Invoker → Triggers the command without knowing how the action is executed.
+- Client → Creates command objects and assigns them to the invoker.
+
+```py
+# Command Interface
+class Command:
+    def execute(self):
+        pass
+
+    def undo(self):
+        pass
+
+# Receiver
+class Light:
+    def turn_on(self):
+        print("Light is ON")
+
+    def turn_off(self):
+        print("Light is OFF")
+
+# Concrete Commands
+class LightOnCommand(Command):
+    def __init__(self, light):
+        self.light = light
+
+    def execute(self):
+        self.light.turn_on()
+
+    def undo(self):
+        self.light.turn_off()
+
+class LightOffCommand(Command):
+    def __init__(self, light):
+        self.light = light
+
+    def execute(self):
+        self.light.turn_off()
+
+    def undo(self):
+        self.light.turn_on()
+
+# Invoker
+class RemoteControl:
+    def __init__(self):
+        self.command_history = []
+
+    def submit(self, command):
+        command.execute()
+        self.command_history.append(command)
+
+    def undo_last(self):
+        if self.command_history:
+            last_command = self.command_history.pop()
+            last_command.undo()
+
+# Client Code
+if __name__ == "__main__":
+    light = Light()
+    light_on = LightOnCommand(light)
+    light_off = LightOffCommand(light)
+
+    remote = RemoteControl()
+
+    remote.submit(light_on)   # Light is ON
+    remote.submit(light_off)  # Light is OFF
+    remote.undo_last()        # Light is ON
+```
+
+**When to use**
+- Use when you want to parameterize objects with operations, i.e., pass, store, or switch actions as objects.
+- Use when you need to queue, schedule, log, or execute operations later or remotely.
+- Use when you need to support undo/redo functionality by storing command history.
+
+
+<br>
