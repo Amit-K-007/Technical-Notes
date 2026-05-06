@@ -154,3 +154,30 @@
 
 
 <br>
+
+
+### Binary Tree Maximum Path Sum
+
+- Problem: A path in a binary tree is a sequence of connected nodes with no repeats and does not need to include the root. The path sum is the total of its node values. Given a binary tree root, return the maximum path sum of any non-empty path.
+- Link: https://leetcode.com/problems/binary-tree-maximum-path-sum/
+
+---
+
+- **Algorithm**: Postorder traversal with path contribution
+- Traverse the tree bottom-up so that at each node you already know the best contributions from left and right subtrees.
+- Compute valid contributions from children. For each node:
+```py
+left = max(dfs(node.left), 0)
+right = max(dfs(node.right), 0)
+
+# (Ignore negative paths by taking 0 (they reduce total sum).)
+```
+- At each node, compute: `current = node.val + left + right`
+- This represents the best path passing through this node. Maintain a global variable to store the maximum of all such values.
+- Return only one side (to maintain valid path): `return node.val + max(left, right)`
+- After traversal completes, return the global maximum path sum.
+
+
+<br>
+
+
