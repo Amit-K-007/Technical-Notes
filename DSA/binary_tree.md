@@ -181,3 +181,19 @@ right = max(dfs(node.right), 0)
 <br>
 
 
+### Same tree
+
+- Problem: Given the roots of two binary trees p and q, write a function to check if they are the same or not. Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+- Link: https://leetcode.com/problems/same-tree/
+
+---
+
+- **Algorithm**: Bool of left and right
+- For a pair of nodes to be identical:
+    - Either both should be `nil`.
+    - Or both should be not `nil` and should have the same value.
+- Check if a pair of nodes is identical. If it is, recursively check the left and right pair.
+- Also implement early stoping. If a pair is not identical, return `false` from there, don't evaluate other pairs.
+
+
+<br>
