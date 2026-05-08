@@ -218,3 +218,34 @@ right = max(dfs(node.right), 0)
 
 
 <br>
+
+
+### Vertical order traversal
+
+- Problem: You are given the root of a binary tree. Each node has a (row, col) position where left children go to (row+1, col–1) and right children to (row+1, col+1). You must return the vertical order traversal: group nodes by column from leftmost to rightmost, and within each column sort nodes first by row (top to bottom) and then by value if they share the same row and column.
+- Link: https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+
+---
+
+- **Algorithm**: DFS traversal with node positions.
+- Start traversal from `(row=0, col=0)`.
+- For every node:
+  - Store `(col, row, value)` in a list.
+  - Move left → `(row+1, col-1)`
+  - Move right → `(row+1, col+1)`
+- Sort the list:
+  - First by column
+  - Then by row
+  - Then by node value
+- Iterate sorted nodes to get final vertical order traversal:
+  - If column changes, create new column in answer.
+  - Append node values to current column.
+
+---
+
+**Approach 2**: C++ approach using `Multiset`
+- Multiset: Stores multiple values in sorted order, keeping duplicates also. `[2, 2, 4, 5]` 
+- Use nested maps to group nodes by (column, row) and a multiset/sorted container to automatically keep nodes at the same position ordered by value, during insertion itself.
+
+
+<br>
