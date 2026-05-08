@@ -197,3 +197,24 @@ right = max(dfs(node.right), 0)
 
 
 <br>
+
+
+### Binary Tree Zigzag Level Order Traversal
+
+- Problem: Given the `root` of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+- Link: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal
+
+---
+
+- **Algorithm**: BFS traversal with alternating direction.
+- Use a queue and process nodes level by level.
+- Maintain a flag left_to_right for direction to follow at each level.
+- For every level:
+  - Create an array of size `level_size`.
+  - If left_to_right, place node at index `i`.
+  - Else place node at index `level_size - i - 1`.
+- Push left and right child into queue while processing nodes.
+- After every level, toggle direction flag and add current level to answer.
+
+
+<br>
