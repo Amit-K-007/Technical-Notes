@@ -14,6 +14,7 @@
 - [B - Observer](#b---observer)
 - [B - Strategy](#b---strategy)
 - [B - Command](#b---command)
+- [B - Template Method](#b---template-method)
 
 
 <br>
@@ -1225,3 +1226,80 @@ if __name__ == "__main__":
 
 
 <br>
+
+
+### B - Template Method
+
+**Overview**
+- It defines skeleton of an algorithm in a method called **template method**.
+- It allows subclasses to redefine certain steps of the algorithm **without changing its skeleton**.
+- Promotes code reuse and avoid duplication.
+
+**Components**
+- Component: defines the template method (non-overridable).
+- Concrete Component: implements parts of the algorithm.
+- Client Code: calls the template method on concrete classes.
+
+```py
+from abc import ABC, abstractmethod
+
+# Component
+class DataProcessor(ABC):
+    # Template method
+    def process(self):
+        self.load_data()
+        self.process_data()
+        self.save_data()
+
+    @abstractmethod
+    def load_data(self):
+        pass
+
+    @abstractmethod
+    def process_data(self):
+        pass
+
+    @abstractmethod
+    def save_data(self):
+        pass
+
+# Concrete Component 1
+class CSVDataProcessor(DataProcessor):
+    def load_data(self):
+        print("Loading data from CSV file")
+
+    def process_data(self):
+        print("Processing CSV data")
+
+    def save_data(self):
+        print("Saving processed data to CSV")
+
+# Concrete Component 2
+class JSONDataProcessor(DataProcessor):
+    def load_data(self):
+        print("Loading data from JSON file")
+
+    def process_data(self):
+        print("Processing JSON data")
+
+    def save_data(self):
+        print("Saving processed data to JSON")
+
+# Usage
+csv_processor = CSVDataProcessor()
+csv_processor.process()
+
+print("---")
+
+json_processor = JSONDataProcessor()
+json_processor.process()
+```
+
+**When to use**
+- When you have a generic algorithm where parts of it can vary, but the overall structure should remain the same.
+
+
+<br>
+
+
+
