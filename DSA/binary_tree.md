@@ -249,3 +249,22 @@ right = max(dfs(node.right), 0)
 
 
 <br>
+
+
+### Symmetric tree
+
+- Problem: Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+- Link: https://leetcode.com/problems/symmetric-tree/
+
+---
+
+- **Algorithm**: Traverse 2 trees simultaneously
+- Use a single recursive function to traverse 2 trees together.
+- Trees 1: `root.left`. Tree 2: `root.right`.
+- Both nodes should be absent or present with same value.
+- If the above condition satisfies, got to left of node 1 and right of node 2. And then right of node 1 and left of node 2.
+- Keep doing recursively until whole tree is traverse or the condition fails.
+
+
+<br>
+
