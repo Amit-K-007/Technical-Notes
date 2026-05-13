@@ -268,3 +268,30 @@ right = max(dfs(node.right), 0)
 
 <br>
 
+
+### Binary Tree Right Side View
+
+- Problem: Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+- Link: https://leetcode.com/problems/binary-tree-right-side-view
+
+---
+
+- **Algorithm**: BFS Approach (Level Order Traversal)
+- For every level:
+  - Traverse all nodes of that level.
+  - The last node processed is the rightmost node.
+- Add the last node’s value of every level to answer.
+- Push left and right child into queue while traversing.
+
+---
+
+**Approach 2**: DFS traversal prioritising right subtree.
+- Traverse: `node -> right -> left`
+- Maintain current depth/level.
+- First node visited at a level is the visible rightmost node.
+- If current level equals answer size:
+  - Add node value to answer.
+- Continue recursive traversal for right and left subtree.
+
+
+<br>
