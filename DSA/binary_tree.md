@@ -295,3 +295,20 @@ right = max(dfs(node.right), 0)
 
 
 <br>
+
+
+### Lowest common ancestor
+
+- Problem: Find the lowest common ancestor (LCA) of two nodes in a binary tree, where LCA is the lowest node that has both nodes as descendants (a node can be a descendant of itself).
+- Link: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+---
+
+- **Algorithm**: Return node or None
+- Traverse the tree using postorder traversal (LRN).
+- If current node is same as `p` or `q`, return that node.
+- If we receive a node value from left subtree and right subtree, that means current node is the LCA. Return it.
+- Otherwise if a value is received from left subtree, return it or right subtree or `None`.
+
+
+<br>
