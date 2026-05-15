@@ -312,3 +312,33 @@ right = max(dfs(node.right), 0)
 
 
 <br>
+
+
+### Maximum Width of Binary Tree
+
+- Problem: Given a binary tree root, return its maximum width, defined as the largest number of nodes (including gaps) between the leftmost and rightmost non-null nodes at any level.
+- Link: https://leetcode.com/problems/maximum-width-of-binary-tree/
+
+---
+
+- **Algorithm**: BFS traversal with complete binary tree indexing.
+- Assign an index to every node: (idx is parent's index)
+  - Left child → `2 * idx`
+  - Right child → `2 * idx + 1
+- For every level:
+  - Width = `last_index - first_index + 1`
+- Store `(node, index)` in queue during BFS traversal.
+- Normalize indices at every level:
+  - `idx -= first_index`
+  - to avoid very large numbers for deep trees.
+- Update maximum width for every level and return the answer.
+```
+        1(0)
+      /      \
+   3(0)      2(1)
+   /            \
+5(0)            9(3)
+```
+
+
+<br>
