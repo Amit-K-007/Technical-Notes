@@ -342,3 +342,44 @@ right = max(dfs(node.right), 0)
 
 
 <br>
+
+
+### All Nodes Distance K in Binary Tree
+
+- Problem: Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.
+- Link: https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree
+
+---
+
+- Algorithm: Parent Map + BFS
+- Convert tree into graph using parent pointers, so that we can go left, right and up direction from any node.
+- Traverse tree and store: `parent[child] = parent_node`
+- Start BFS from target node.
+- From every node, traverse:
+  - left child
+  - right child
+  - parent node
+- Use visited set to avoid revisiting nodes.
+- When distance becomes `k`, add node value to answer.
+
+---
+
+- **Approach 2**: Path + Blocked Subtree Approach
+- Find path from root to target and process ancestors one by one.
+- Store path as: `(node, direction_to_block)` while returning from recursion.
+- Starting from target node:
+  - Run DFS to collect nodes at remaining distance.
+  - Move upward through path and increase current distance.
+- While processing an ancestor:
+  - Block traversal towards subtree from which we came.
+  - This avoids revisiting already processed nodes.
+- Instead of permanently modifying tree:
+  - Temporarily disconnect blocked branch using a temp variable.
+  - Restore it after DFS call.
+- Approach is made by me 🙂: https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/submissions/2004725936/
+
+
+<br>
+
+
+
