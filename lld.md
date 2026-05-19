@@ -2,6 +2,8 @@
 - [SOLID Principles](#solid-principles)
 - [Design Patterns](#design-patterns)
 - [Creational Patterns](#creational-patterns)
+- [Structural Patterns](#structural-patterns)
+- [Behavioural Patterns](#behavioural-patterns)
 - [C - Factory Method](#c---factory-method)
 - [C - Abstract Factory](#c---abstract-factory)
 - [C - Singleton](#c---singleton)
@@ -16,6 +18,7 @@
 - [B - Command](#b---command)
 - [B - Template Method](#b---template-method)
 - [B - State](#b---state)
+- [B - Chain of Responsibility](#b---chain-of-responsibility)
 
 
 <br>
@@ -284,6 +287,18 @@ class UserService:
 3. **Abstract Factory** → Creates families of related objects without specifying their concrete classes.
 4. **Builder** → Constructs complex objects step by step.
 5. **Prototype** → Creates objects by cloning existing instances.
+
+
+<br>
+
+
+### Structural Patterns
+- It deals with how classes and objects are composed to form larger structures.
+- Main Structural Patterns:
+1. Adapter → Allows incompatible interfaces to work together by converting one interface into another.
+2. Decorator → Adds new behavior to objects dynamically without modifying existing code.
+3. Composite → Treats individual objects and groups of objects uniformly in tree-like structures.
+4. Proxy → Provides a placeholder or substitute object to control access to another object.
 
 
 <br>
