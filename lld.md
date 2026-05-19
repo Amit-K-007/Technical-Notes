@@ -1380,3 +1380,85 @@ Document already published
 <br>
 
 
+### B - Chain of Responsibility
+
+**Overview**
+- It lets you pass requests along a chain of handlers.
+- Each handler decides:
+    - Should it process the request.
+    - Or pass it to the next handler in the chain.
+- A good example is **Django Middlewares**.
+
+**Components**
+- Component: defines one method for request handling and one for passing the request.
+- Concrete Component: implements the request handling logic.
+- Client: creates and links handlers into a chain.
+
+```py
+from abc import ABC, abstractmethod
+
+# --- Handler Interface ---
+class SupportHandler(ABC):
+    def __init__(self):
+        self.next_handler = None
+
+    def set_next(self, handler: 'SupportHandler') -> 'SupportHandler':
+        self.next_handler = handler
+        return handler  # Allows chaining
+
+    @abstractmethod
+    def handle(self, issue: str, level: int):
+        pass
+
+# --- Concrete Handlers ---
+class LevelOneSupport(SupportHandler):
+    def handle(self, issue: str, level: int):
+        if level == 1:
+            print(f"Level 1 handled issue: {issue}")
+        elif self.next_handler:
+            self.next_handler.handle(issue, level)
+        else:
+            print("Issue unhandled.")
+
+class LevelTwoSupport(SupportHandler):
+    def handle(self, issue: str, level: int):
+        if level == 2:
+            print(f"Level 2 handled issue: {issue}")
+        elif self.next_handler:
+            self.next_handler.handle(issue, level)
+        else:
+            print("Issue unhandled.")
+
+class ManagerSupport(SupportHandler):
+    def handle(self, issue: str, level: int):
+        if level >= 3:
+            print(f"Manager handled issue: {issue}")
+        elif self.next_handler:
+            self.next_handler.handle(issue, level)
+        else:
+            print("Issue unhandled.")
+
+# --- Client Code ---
+if __name__ == "__main__":
+    # Setup chain: Level1 -> Level2 -> Manager
+    level1 = LevelOneSupport()
+    level2 = LevelTwoSupport()
+    manager = ManagerSupport()
+
+    level1.set_next(level2).set_next(manager)
+
+    # Test different issues
+    level1.handle("Forgot password", level=1)
+    level1.handle("System crash", level=2)
+    level1.handle("Legal escalation", level=3)
+    level1.handle("Unknown issue", level=4)
+```
+
+**When to use**
+- When you have multiple handlers that can handle a request.
+- When you want to decouple sender from receiver.
+- When you want the request to be processed by one or many handlers.
+
+
+<br>
+
