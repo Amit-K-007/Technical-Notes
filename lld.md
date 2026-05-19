@@ -282,6 +282,7 @@ class UserService:
 ### Creational Patterns
 - It deals with object creation mechanisms.
 - Main Creational Patterns:
+
 1. **Singleton** → Ensures a class has only one instance and provides global access to it.
 2. **Factory Method** → Lets subclasses decide which object to instantiate.
 3. **Abstract Factory** → Creates families of related objects without specifying their concrete classes.
@@ -295,10 +296,26 @@ class UserService:
 ### Structural Patterns
 - It deals with how classes and objects are composed to form larger structures.
 - Main Structural Patterns:
-1. Adapter → Allows incompatible interfaces to work together by converting one interface into another.
-2. Decorator → Adds new behavior to objects dynamically without modifying existing code.
-3. Composite → Treats individual objects and groups of objects uniformly in tree-like structures.
-4. Proxy → Provides a placeholder or substitute object to control access to another object.
+
+1. **Adapter** → Allows incompatible interfaces to work together by converting one interface into another.
+2. **Decorator** → Adds new behavior to objects dynamically without modifying existing code.
+3. **Composite** → Treats individual objects and groups of objects uniformly in tree-like structures.
+4. **Proxy** → Provides a placeholder or substitute object to control access to another object.
+
+
+<br>
+
+
+### Behavioural Pattern
+- It deals with communication and interaction between objects.
+- Main Behavioral Patterns:
+
+1. **Observer** → Notifies dependent objects automatically when the subject’s state changes.
+2. **Strategy** → Encapsulates interchangeable algorithms and allows switching them at runtime.
+3. **Command** → Encapsulates requests/actions as objects.
+4. **Template Method** → Defines the skeleton of an algorithm while allowing subclasses to customize specific steps.
+5. **State** → Changes an object’s behavior when its internal state changes.
+6. **Chain of Responsibility** → Passes requests through a chain of handlers until one handles it.
 
 
 <br>
