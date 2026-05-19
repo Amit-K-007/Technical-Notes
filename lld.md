@@ -15,6 +15,7 @@
 - [B - Strategy](#b---strategy)
 - [B - Command](#b---command)
 - [B - Template Method](#b---template-method)
+- [B - State](#b---state)
 
 
 <br>
@@ -1301,5 +1302,81 @@ json_processor.process()
 
 <br>
 
+
+### B - State
+
+**Overview**
+- It allows an object to change its behavior when its internal state changes.
+- Different states are represented as separate classes.
+- The context delegates state-specific behavior to the current state object.
+- State objects can also trigger transitions by changing the context’s current state.
+- Eliminates large conditional logic based on object states.
+
+**Components**
+- Context → Stores current state and delegates behavior to it
+- State Interface → Declares state-specific operations
+- Concrete States → Implement behavior and perform state transitions
+- Client → Interacts with the context
+
+```py
+from abc import ABC, abstractmethod
+
+# State Interface
+class State(ABC):
+    @abstractmethod
+    def publish(self, document):
+        pass
+
+# Concrete States
+class DraftState(State):
+    def publish(self, document):
+        print("Moving to moderation")
+        document.state = ModerationState()
+
+class ModerationState(State):
+    def publish(self, document):
+        if document.is_admin:
+            print("Publishing document")
+            document.state = PublishedState()
+        else:
+            print("Admin approval required")
+
+class PublishedState(State):
+    def publish(self, document):
+        print("Document already published")
+
+# Context
+class Document:
+    def __init__(self, is_admin=False):
+        self.is_admin = is_admin
+        self.state = DraftState()
+
+    def publish(self):
+        self.state.publish(self)
+
+# Client
+doc = Document(is_admin=True)
+doc.publish()
+doc.publish()
+doc.publish()
+
+
+# Output
+Moving to moderation
+Publishing document
+Document already published
+```
+
+**When to use**
+- Use when an object behaves differently depending on its current state.
+- Use when state transitions are complex and changing frequently.
+- Use when large conditionals are used to manage states and transitions.
+
+**Strategy vs State Pattern**
+- Strategies usually don't know each other.
+- States know transitions and can switch the context’s state.
+
+
+<br>
 
 
