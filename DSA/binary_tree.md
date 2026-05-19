@@ -382,4 +382,26 @@ right = max(dfs(node.right), 0)
 <br>
 
 
+###  Count Complete Tree Nodes
+
+- Problem:  Count Complete Tree Nodes
+- Link: https://leetcode.com/problems/count-complete-tree-nodes
+
+---
+
+- **Algorithm**: Use properties of Complete Binary Tree.
+- For every subtree:
+  - Find leftmost height.
+  - Find rightmost height.
+- If both heights are equal:
+  - Tree is a perfect binary tree.
+  - Nodes count: `2^height - 1`
+- Else:
+  - Recursively count nodes in left and right subtree.
+  - Add current node: `1 + left_count + right_count`
+- This avoids traversing all nodes for perfect subtrees.
+
+
+<br>
+
 
