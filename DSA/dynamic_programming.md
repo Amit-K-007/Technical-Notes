@@ -36,3 +36,46 @@
 
 
 <br>
+
+
+### House Robber II
+
+- Problem: Given money in houses arranged in a circle, find the maximum amount that can be robbed without robbing two adjacent houses. Since the first and last houses are also adjacent, they cannot both be robbed.
+- Link: https://leetcode.com/problems/house-robber-ii/
+
+---
+
+**Memoization**: Recursively decide whether to rob or skip the current house.
+- State consists of:
+  - Current house index.
+  - Whether the first house was robbed.
+- If first house is robbed, last house cannot be considered.
+- Store results of previously solved states in DP.
+- For every house:
+  - Rob it and move two houses ahead.
+  - Skip it and move to next house.
+- Return the better of the two choices.
+
+---
+
+**Tabulation**: Solve House Robber I for both valid ranges.
+- Define: `dp[i] = maximum money that can be robbed till house i`
+- For every house:
+  - Either rob current house and add best till `i-2`.
+  - Or skip current house and keep best till `i-1`.
+- Fill DP array from left to right.
+- Compute answer separately for both ranges and return the maximum.
+
+---
+
+**Space Optimized**: Same DP transition as tabulation.
+- Observe that current state depends only on previous two states.
+- Maintain:
+  - Best answer till previous house.
+  - Best answer till house before previous.
+- Update these values while traversing houses.
+- Solve for both valid ranges and return the maximum.
+
+
+<br>
+
