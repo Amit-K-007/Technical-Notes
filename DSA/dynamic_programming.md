@@ -79,3 +79,50 @@
 
 <br>
 
+
+### Unique Paths
+
+- Problem: Find the total number of unique paths from the top-left to the bottom-right of an m × n grid, moving only right or down.
+- Link: https://leetcode.com/problems/unique-paths
+
+---
+
+**Brute Force (Recursion)**: Explore all possible paths recursively.
+- From every cell, try both possible moves:
+  - Move right.
+  - Move down.
+- If the path goes outside the grid, discard it.
+- If the destination is reached, count it as one valid path.
+- Sum all valid paths obtained from both choices.
+
+---
+
+**Memoization**: Store the number of paths from each cell to avoid recomputation.
+- State represents the current cell `(row, col)`.
+- If a cell's answer is already computed, reuse it.
+- Otherwise, compute it recursively using right and down moves.
+- Store the result before returning.
+
+---
+
+**Tabulation**: Build the solution from smaller subproblems.
+- Let `dp[i][j]` represent the number of ways to reach cell `(i, j)`.
+- First row and first column have only one possible path.
+- Every other cell can be reached either from:
+  - the top cell, or
+  - the left cell.
+- Fill the DP table row by row and return the last cell.
+
+---
+
+**Space Optimized DP**: Use only one row of DP instead of the entire grid.
+- Observe that each cell depends only on:
+  - current row's previous column, and
+  - previous row's same column.
+- Update the DP array while traversing each row.
+- The last element stores the total number of unique paths.
+
+
+<br>
+
+
