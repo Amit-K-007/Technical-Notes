@@ -126,3 +126,15 @@
 <br>
 
 
+### Unique Paths II
+
+- Problem: Find the total number of unique paths from the top-left to the bottom-right of a grid containing obstacles, moving only right or down. Cells marked 1 are blocked and cannot be visited.
+- Link: https://leetcode.com/problems/unique-paths-ii/
+
+---
+
+**Algorithm**: Similar to previous problem
+- Obstacle Handling: Treat obstacle cells as having 0 paths. During recursion/DP, immediately return or store 0 for blocked cells so they do not contribute to any valid path.
+
+
+<br>
