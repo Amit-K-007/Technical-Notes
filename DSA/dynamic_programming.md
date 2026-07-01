@@ -138,3 +138,18 @@
 
 
 <br>
+
+
+### Minimum Path Sum
+
+- Problem: Find a path from the top-left to the bottom-right of a grid such that the sum of all visited cells is minimum, moving only right or down.
+- Link: https://leetcode.com/problems/minimum-path-sum/
+
+---
+
+**Algorithm**: Instead of counting paths, DP stores the minimum cost to reach each cell.
+- Transition becomes: `current_cell + min(top, left)` (or `min(right, down)` in memoization).
+
+
+<br>
+
