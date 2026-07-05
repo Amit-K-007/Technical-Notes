@@ -153,3 +153,31 @@
 
 <br>
 
+
+### Triangle
+
+- Problem: Find the minimum path sum from the top to the bottom of a triangle, where from each element you can move only to the same index or the next index in the row below.
+- Link: https://leetcode.com/problems/triangle/
+
+---
+
+**Memoization**: Recursively find the minimum path sum from each position to the bottom.
+- State represents the current position `(row, col)`.
+- If the last row is reached, return its value.
+- Store the minimum cost for each state to avoid recomputation.
+- From every position, choose the minimum of:
+  - moving to the same index,
+  - moving to the next index.
+ 
+---
+
+**Tabulation**: Build the DP table from the bottom row upwards.
+- Initialize the last row as the base case.
+- For every cell moving upwards:
+  - Add the current value to the minimum of its two reachable children.
+- Continue until reaching the top.
+- The top element stores the minimum path sum.
+- **Space Optimized DP**: Use a single DP array initialized with the last row.
+
+
+<br>
