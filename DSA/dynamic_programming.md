@@ -181,3 +181,50 @@
 
 
 <br>
+
+
+### Partition Equal Subset Sum
+
+- Problem: Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.
+- Link: https://leetcode.com/problems/partition-equal-subset-sum/
+
+---
+
+**Key Observation**:
+- If the total sum is odd, equal partition is impossible.
+- Otherwise, the problem reduces to finding a subset with sum: `total_sum / 2`
+
+---
+
+**Memoization**: Recursively decide whether to include or exclude each element.
+- State consists of:
+  - current index,
+  - remaining target sum.
+- If target becomes `0`, a valid subset is found.
+- If index reaches the end or target becomes negative, return `False`.
+- Store results of previously solved states to avoid recomputation.
+
+---
+
+**Tabulation**: Build DP table for subset sum: (n * target)
+- Let `dp[i][j]` denote whether sum `j` can be formed using the first `i` elements.
+- Initialize sum `0` as always possible.
+- For every element:
+  - Exclude it.
+  - Include it if it does not exceed the current target.
+- The final answer is whether `target = total_sum / 2` is achievable.
+
+---
+
+**Space optimized tabulation**: Use prev & curr table.
+- `prev` stores achievable sums using previous elements.
+- For every element, build `curr` using:
+  - excluding the current element (`prev`),
+  - including the current element (if possible).
+- After processing each element, update `prev = curr`.
+- Return whether the target sum is achievable.
+
+
+<br>
+
+
