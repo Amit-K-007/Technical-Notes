@@ -228,3 +228,30 @@
 <br>
 
 
+### Cherry Pickup II
+
+- Problem: Two robots start from the top-left and top-right corners of the grid. Find the maximum cherries both can collect while moving to the bottom row, where each robot can move diagonally left, down, or diagonally right.
+- Link: https://leetcode.com/problems/cherry-pickup-ii
+
+---
+
+**Memoization**: Use recursion with state `(row, col1, col2)` representing the current row and positions of both robots.
+- If either robot goes out of bounds, return a very small value (invalid path).
+- At each state, collect cherries from both positions:
+  - If `col1 == col2`, count cherries only once.
+  - Otherwise, add cherries from both cells.
+- Try all 9 possible movement combinations for the next row.
+- Store the result for each state to avoid recomputation.
+
+---
+
+**Tabulation**: Build a 3D DP table bottom-up.
+- Let `dp[row][col1][col2]` represent the maximum cherries collectable from that state.
+- Initialize the last row with the cherries collected by both robots.
+- For each row from bottom to top, check all 9 next moves and choose the maximum.
+- Add the current row's cherries to the best next-state value.
+
+
+<br>
+
+
