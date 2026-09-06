@@ -255,3 +255,37 @@
 <br>
 
 
+### Coin Change
+
+- Problem: Given coins of different denominations and an infinite supply of each, find the fewest number of coins needed to make up a given amount. Return `-1` if it cannot be made.
+- Link: https://leetcode.com/problems/coin-change/
+
+---
+
+**Key Observation**:
+- Unlike 0/1 knapsack style problems, each coin can be reused any number of times (unbounded).
+- The problem reduces to: minimum number of coins summing exactly to `amount`.
+
+---
+
+**Memoization**: Recursively find minimum coins needed for a given remaining amount.
+- State represents the remaining amount.
+- If remaining amount becomes `0`, no more coins are needed (base case = 0).
+- If remaining amount becomes negative, return infinity (invalid path).
+- For every coin:
+  - Try using it and recurse on `remaining - coin` (coin can be reused, so index doesn't decrease).
+  - Take the minimum across all coin choices, adding 1 for the current coin used.
+- Store results of previously solved states in DP to avoid recomputation.
+
+---
+
+**Tabulation**: Build answer from smaller subproblems.
+- Let `dp[i]` represent the minimum coins needed to make amount `i`.
+- Initialize `dp[0] = 0` (base case) and rest as infinity.
+- For every amount from `1` to `amount`:
+  - For every coin:
+    - If coin value ≤ current amount, update `dp[i] = min(dp[i], dp[i - coin] + 1)`.
+- If `dp[amount]` is still infinity, return `-1`; otherwise return `dp[amount]`.
+
+
+<br>
