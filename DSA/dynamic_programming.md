@@ -289,3 +289,53 @@
 
 
 <br>
+
+
+### Target Sum
+
+- Problem: Given an integer array `nums` and an integer `target`, assign `'+'` or `'-'` before each element such that the resulting expression evaluates to `target`. Return the number of ways to do so.
+- Link: https://leetcode.com/problems/target-sum/
+
+---
+
+**Key Observation**:
+- Let `P` = sum of elements assigned `'+'` and `N` = sum of elements assigned `'-'`.
+- `P - N = target` and `P + N = total_sum` → `P = (target + total_sum) / 2`.
+- Problem reduces to: count subsets of `nums` with sum equal to `P` (Subset Sum Count variant).
+- If `(target + total_sum)` is odd or negative, answer is `0` (no valid partition possible).
+
+---
+
+**Memoization**: Recursively decide `'+'` or `'-'` for each element.
+- State consists of:
+  - current index,
+  - current sum achieved so far.
+- If index reaches the end:
+  - Return `1` if current sum equals `target`, else `0`.
+- At every index:
+  - Add current element (`+nums[i]`) and recurse.
+  - Subtract current element (`-nums[i]`) and recurse.
+- Sum both possibilities and store the result for the state to avoid recomputation.
+
+---
+
+**Tabulation (Subset Sum Count)**: Build DP table using the reduced subset-sum-count formulation.
+- Let `dp[i][j]` denote the number of ways to form sum `j` using the first `i` elements.
+- Initialize `dp[0][0] = 1` (empty subset makes sum 0).
+- For every element:
+  - Exclude it: carry forward `dp[i-1][j]`.
+  - Include it (if `j >= nums[i]`): add `dp[i-1][j - nums[i]]`.
+- Final answer is `dp[n][P]`, where `P = (target + total_sum) / 2`.
+
+---
+
+**Space optimized tabulation**: Use `prev` & `curr` array.
+- `prev` stores the number of ways to form each sum using previous elements.
+- For every element, build `curr` using:
+  - excluding the current element (`prev[j]`),
+  - including the current element (`prev[j - nums[i]]`, if valid).
+- After processing each element, update `prev = curr`.
+- Return `prev[P]` as the final answer.
+
+
+<br>
