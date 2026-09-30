@@ -339,3 +339,29 @@
 
 
 <br>
+
+
+### Count Square Submatrices with All Ones
+
+- Problem: Given a `m x n` matrix of ones and zeros, return the total number of square submatrices that contain only 1s.
+- Link: https://leetcode.com/problems/count-square-submatrices-with-all-ones
+
+---
+
+**Memoization**:
+- For each cell, find the largest all-1 square having that cell as its bottom-right corner.
+- State: (row, col) → maximum square size ending at that cell.
+- If the cell is 0, return 0.
+- Otherwise, size = 1 + min(right, down, diagonal) in the recursive direction.
+- Add the size of every cell to the answer, since a square of size k contains k valid squares ending at that cell.
+
+---
+
+**Tabulation**:
+- Build a DP table where dp[i][j] is the largest all-1 square ending at (i,j).
+- If matrix[i][j] == 1, then dp[i][j] = 1 + min(top, left, diagonal).
+- If it is 0, dp[i][j] = 0.
+- Add every dp[i][j] to the answer.
+
+
+<br>
